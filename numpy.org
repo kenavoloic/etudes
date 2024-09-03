@@ -1,0 +1,1163 @@
+* Manipulation array
+
+#+begin_src python :results output
+import numpy as np
+d_ = [[0, 1, 2, 3],
+ [10, 11, 12, 13],
+ [20, 21, 22, 23],
+ [30, 31, 32, 33],
+ [40, 41, 42, 43]]
+
+d = np.array(d_)
+
+# print(d.ndim, d.shape)
+# print(d.tolist())
+# print(d[:-1])
+
+print(d.dtype)
+#print(d[:-1][3:4])
+print(d[0:2, 1:3])
+
+print(d[1::2])
+#+end_src
+
+#+RESULTS:
+: int64
+: [[ 1  2]
+:  [11 12]]
+: [[10 11 12 13]
+:  [30 31 32 33]]
+
+
+#+begin_src python :results output
+import numpy as np
+
+array_1 = np.array([10, 40, 45,  5, 66, 91, 43, 75, 40, 28, 55, 45, 31, 71, 67, 54, 54,
+       35, 64, 27, 12, 93, 17, 91, 50, 57, 74, 61, 86, 20, 36, 35])
+
+array_2 = array_1.reshape(1, 32)
+array_3 = array_1.reshape(32,1)
+# print(array_1.ndim, array_1.shape)
+# print(array_1[0])
+
+print(array_2)
+# print(array_3)
+
+print(array_2[0])
+print(array_3[0])
+
+print(array_2[:, 3])
+
+# Résultats identiques, notations différentes
+print(array_1[::3])
+print(array_1[0:-1:3])
+#+end_src
+
+#+RESULTS:
+: [[10 40 45  5 66 91 43 75 40 28 55 45 31 71 67 54 54 35 64 27 12 93 17 91
+:   50 57 74 61 86 20 36 35]]
+: [10 40 45  5 66 91 43 75 40 28 55 45 31 71 67 54 54 35 64 27 12 93 17 91
+:  50 57 74 61 86 20 36 35]
+: [10]
+: [5]
+: [10  5 43 28 31 54 64 93 50 61 36]
+: [10  5 43 28 31 54 64 93 50 61 36]
+
+
+#+begin_src python :results output
+import numpy as np
+
+a_2 = np.arange(10,70, 10).reshape(2,3)
+a_3 = np.arange(1,7).reshape(2,3)
+
+print(a_2)
+print(a_3)
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+
+a_2 = np.arange(0,6).reshape(2,3)
+a3 = np.arange(0,6).reshape(2,3)
+print(a_2)
+
+a_2[1, :] = a_2[1, :] + a_2[0, :]
+
+print(a_2)
+
+a3[1, :] = 3*a3[0, :] + 5*a3[0, :]
+
+print(a3)
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+
+a_2 = np.arange(0,6).reshape(2,3)
+print(a_2)
+
+#print(a_2[: ,1], a_2[: ,2], a_2[: ,2]*a_2[: ,2])
+print(a_2[: ,1])
+
+a_2[:,1] += a_2[:,0]
+
+print(a_2)
+#+end_src
+
+#+RESULTS:
+: [[0 1 2]
+:  [3 4 5]]
+: [1 4]
+: [[0 1 2]
+:  [3 7 5]]
+
+* Essai 1
+
+#+begin_src python :results output :session exoNumpy
+
+import numpy as np
+
+d = np.genfromtxt("world-alcohol.csv", delimiter=",")
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", dtype="U80")
+d2 = np.genfromtxt("world-alcohol.csv", delimiter=",", dtype="U75",skip_header=True)
+d3 = np.genfromtxt("world-alcohol.csv", delimiter=",", dtype="U80",skip_header=True)
+
+d1  = d1[:,-1].astype(float)
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src python :results output :session exoNumpy
+#print(type(d), d.dtype)
+print("d",d)
+print("d1",d1)
+print("d2",d2)
+print("d3", d3)
+#+end_src
+
+
+#+begin_src python :results output :session exoNumpy
+france = np.array([x for x in d1 if x[2] == 'France'])
+france_canada = np.array([x for x in d1 if x[2] == 'France' or x[2] == 'Canada'])
+
+france2 = np.array([x for x in d2 if x[2] == 'France'])
+france_canada2 = np.array([x for x in d2 if x[2] == 'France' or x[2] == 'Canada'])
+
+print(france)
+print(france_canada)
+print(type(france2), type(france))
+
+#+end_src
+
+#+begin_src python :results output :session exoNumpy
+print(d1.ndim, d1.shape)
+
+#+end_src
+
+#+RESULTS:
+: 2 (3258, 5)
+
+* Essai 2
+
+#+begin_src python :results output :session exo2
+import numpy as np
+
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U80")
+france = np.fromiter((x for x in d1 if x[2] == 'France'), dtype=object)
+franceCanada = np.fromiter((x for x in d1 if x[2] == 'France' or x[2] == 'Canada'), dtype=object)
+#print(d1.shape, d1.ndim)
+#print(d1)
+print(france)
+print(franceCanada)
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U80")
+
+# masque = "France"
+# france = np.where(d1[3] == masque)
+# print(france)
+#france = d1[d1 == 'France']
+#print(d1)
+#print(france)
+
+filtre = (d1[:,-1] == '')
+d1[:, -1][filtre] = '0'
+conso = d1[:, -1].astype(float)
+d1[:, 4].astype(float)
+#print(d1)
+#print(conso)
+
+france = d1[d1[:,2] == 'France']
+print(france)
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U80")
+
+filtre = (d1[:,4] == '')
+d1[:, -1][filtre] = '0'
+d1[:,4] = d1[:,4].astype(float)
+
+tempo =  d1[:,4].astype(float)
+print(d1[:,4].ndim)
+tempo = np.transpose(tempo)
+#print(tempo.ndim, tempo.shape)
+# d1[d1[:,4]] = tempo
+#d1[d1[:,4]] = np.transpose(tempo, axes=0)
+#d1[d1[:,4]] = d1[:,4].astype(float)
+
+france = d1[np.where((d1[:,2] == 'France'))]
+franceCanada = d1[np.where((d1[:,2] == 'France' ) | (d1[:,2] == 'Canada'))]
+
+#print(d1)
+
+#print(france)
+#print(d1[:,4])
+#print(d1)
+#print(type(tempo))
+print(tempo.T)
+#print(franceCanada)
+
+#+end_src
+
+
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U80")
+
+filtre = (d1[:,4] == '')
+d1[:, -1][filtre] = '0'
+#print(d1[:, -1])
+#tempo =  d1[:,4:5].astype(float)
+tempo =  d1[:,4].astype(float)
+#tempo = np.transpose(tempo)
+print(tempo)
+d1[d1[:,4]] = tempo
+#print(d1[:,4])
+#print(d1[:, 2])
+#print(d1)
+#print(d1[:,4:5])
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U75")
+
+france_p = d1[:,2] == 'France'
+canada_p = d1[:,2] == 'Canada'
+france_canada_p = (d1[:,2] == "France") | (d1[:,2] == "Canada")
+france_canada_1986_p = ((d1[:,2] == "France") | (d1[:,2] == "Canada")) & (d1[:,0] == '1986')
+
+d2 = d1.copy()
+#print(id(d1), id(d2))
+d2[d2[:,0] == "1986", 0] = "2018"
+# print(d2)
+# print(d1)
+
+d3 = d1.copy()
+print(d3)
+d3 = d3[d3[:,4] != '']
+print(d3)
+
+biere = d1.copy()
+moyenneBiere = np.mean(biere[:,4][(biere[:,4] !="") & (biere[:,3] == "Beer")].astype(float))
+print(moyenneBiere)
+# print(d1[:,:][france_p])
+# print(d1[:,:][canada_p])
+# print(d1[:,:][france_canada_p])
+# print(d1[:,:][france_canada_1986_p])
+#+end_src
+
+
+
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=True, dtype="U75")
+print(d1[1:3])
+filtre = (d1[:, -1] == '')
+d1[:, -1][filtre] = '0'
+d1[:, -1] = d1[:, -1].astype(float)
+print(d1[4:5])
+print(d1[:,4].dtype)
+#+end_src
+
+#+RESULTS:
+: [['1986' 'Americas' 'Uruguay' 'Other' '0.5']
+:  ['1985' 'Africa' "Cte d'Ivoire" 'Wine' '1.62']]
+: [['1987' 'Americas' 'Saint Kitts and Nevis' 'Beer' '1.98']]
+: <U75
+
+* Essai 3
+#+begin_src python :results output
+import numpy as np
+
+#d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=np.dtype("i4,U75,U75,U75,f4"))
+mestypes = np.dtype([('Year','i4'), ('Région','U75'), ('Pays','U75'), ('Boisson','U75'), ('Valeur','f4')])
+#d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=np.dtype("i4,U75,U75,U75,f4"), missing_values=(9999,'Inconnu','Inconnu','Inconnu',0))
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=mestypes) #missing_values=(9999,'Inconnu','Inconnu','Inconnu',0))
+france_p = d1[:,2] == 'France'
+canada_p = d1[:,2] == 'Canada'
+france_canada_p = (d1[:,2] == "France") | (d1[:,2] == "Canada")
+france_canada_1986_p = ((d1[:,2] == "France") | (d1[:,2] == "Canada")) & (d1[:,0] == 1986)
+print(d1)
+#+end_src
+
+#+RESULTS:
+
+* Essai 4
+#+begin_src python :results output
+import numpy as np
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1,dtype="U75")
+
+#valeur par défaut pour consommation manquante : 0
+filtre_consommation = (d1[:, -1] == '')
+d1[:, -1][filtre_consommation] = '0'
+
+#valeur par défaut pour année manquante : 9999
+filtre_annee = (d1[:, 0] == '')
+d1[:, 0][filtre_annee] = '9999'
+
+#conversion valeurs : année et consommation
+# d1[:, -1] = d1[:, -1].astype(float)
+# d1[:, 0] = d1[:, 0].astype(int)
+
+conso = d1[:, -1].astype(float)
+d1[:, 0].astype(int)
+
+print(conso)
+#+end_src
+
+* Essai 5
+
+#+begin_src python :results output
+import numpy as np
+mestypes = np.dtype([('Year','i4'), ('Région','U75'), ('Pays','U75'), ('Boisson','U75'), ('Valeur','f4')])
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=mestypes, missing_values=[9999,'Inconnu','Inconnu','Inconnu',0.0])
+
+d4 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=np.dtype("i4,U75,U75,U75,f4"), missing_values=(9999,'Inconnu','Inconnu','Inconnu',0))
+
+d5 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype="object", missing_values=(9999,'Inconnu','Inconnu','Inconnu',0))
+
+print(d4.shape, d5.shape)
+# d2 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=np.dtype(("i4","U75","U75","U75","f4")))
+# print(d1.shape, d1.ndim)
+# print(d2.shape, d2.ndim)
+
+# france = d1[np.where((d1[:,2] == 'France'))]
+# franceCanada = d1[np.where((d1[:,2] == 'France' ) | (d1[:,2] == 'Canada'))]
+
+# print(france)
+#+end_src
+
+#+RESULTS:
+: (3257,)
+
+* Essai 6
+#+begin_src python :results output
+import numpy as np
+colonnes = np.dtype({'names': ('annee','region','pays','boisson','consommation'),
+                    'formats': ('i8','U80','U80','U80','f8')})
+d1 = np.genfromtxt("world-alcohol.csv", delimiter=",", skip_header=1, dtype=colonnes, missing_values=(9999,'Inconnu','Inconnu','Inconnu',0))
+# print(d1[d1['pays'] == 'France'])
+# print(d1[d1['pays'] == 'Canada'])
+#print(d1[(d1['pays'] == 'France') | (d1['pays'] == 'Canada')])
+print(d1[((d1['pays'] == 'France') | (d1['pays'] == 'Canada')) & d1['annee'] == 1986])
+
+#+end_src
+
+* Essai 7
+#+begin_src python :results output :session essai7
+import numpy as np
+
+_liste = [
+    (1986,"Western Pacific","Viet Nam","Wine",0),
+    (1986,"Americas","Uruguay","Other",0.5),
+    (1985,"Africa","Côte d'Ivoire","Wine",1.62),
+    (1986,"Americas","Colombia","Beer",4.27),
+    (1987,"Americas","Saint Kitts and Nevis","Beer",1.98),
+    (1987,"Americas","Guatemala","Other",0),
+    (1987,"Africa","Mauritius","Wine",0.13),
+    (1985,"Africa","Angola","Spirits",0.39)
+]
+
+dtypeAlcool = np.dtype([('annee', 'i4'), ('region','U80'), ('pays','U80'),('boisson','U40'),('consommation','f4')])
+liste = np.array(_liste, dtype=dtypeAlcool)
+#print(liste.shape, liste.ndim, len(liste.dtype))
+#print(liste['pays'])
+# print(liste.dtype)
+# print(np.sort(liste, order='annee'))
+# print(np.sort(liste, order='consommation'))
+
+#+end_src
+
+#+begin_src python :results output :session essai7
+
+print(dtypeAlcool.names)
+print(type(liste[0][3]))
+print(set(liste['boisson']))
+print(liste[['pays','boisson']])
+print(type(liste[1]))
+#+end_src
+
+* essai 8
+
+https://note.nkmk.me/en/python-numpy-nan-replace/
+filling_values, missing_values
+
+#+begin_src python :results output :session essai8
+import numpy as np
+
+dtypeAlcool = np.dtype([('annee', 'i4'), ('region','U80'), ('pays','U80'),('boisson','U40'),('consommation','f4')])
+manquantes = [9999,'Inconnu','Inconnu','Inconnu', 0.0]
+d = np.genfromtxt("world-alcohol.csv", delimiter=",", dtype=dtypeAlcool, skip_header=True, filling_values=manquantes, missing_values=manquantes)
+#c2018 = d[d['annee'] == 1986] = 2018
+#print(type(c2018[0]))
+#print(d[0])
+#d[d['consommation'] == np.nan)] = 0.0
+#+end_src
+
+#+RESULTS:
+
+#+begin_src python :results output :session essai8
+france = np.sort(d[np.where(d['pays'] == 'France')], order='annee')
+canada = np.sort(d[np.where(d['pays'] == 'Canada')], order='annee')
+#franceCanada = d[np.where((d['pays'] == 'France) or d(['pays'] == 'Canada'))]
+franceCanada = d[(d['pays'] == 'France') | (d['pays'] == 'Canada')]
+franceCanada1986 = d[((d['pays'] == 'France') | (d['pays'] == 'Canada')) & (d['annee'] == 1986)]
+biereSup4 = d[(d['boisson'] == 'Beer') & (d['consommation'] > 4.0)]
+biere4 = d[(d['boisson'] == 'Beer') & (d['consommation'] > 4.0)] = 4.0
+#print(france)
+#print(canada)
+#print(np.sort(franceCanada, order=['annee','region']))
+#print(np.sort(franceCanada, order=['annee','region']))
+print(np.sort(franceCanada1986, order='pays'))
+print(len(biereSup4))
+#print(d[d['consommation'] == isnan()])
+print(biere4)
+print(np.sort(franceCanada1986, order='pays'))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[(1986, 'Americas', 'Canada', 'Other',  0.  )
+ (1986, 'Americas', 'Canada', 'Spirits',  3.11)
+ (1986, 'Americas', 'Canada', 'Wine',  1.33)
+ (1986, 'Europe', 'France', 'Beer',  2.55)
+ (1986, 'Europe', 'France', 'Other',  0.25)
+ (1986, 'Europe', 'France', 'Spirits',  2.71)
+ (1986, 'Europe', 'France', 'Wine', 10.62)]
+0
+4.0
+[(1986, 'Americas', 'Canada', 'Other',  0.  )
+ (1986, 'Americas', 'Canada', 'Spirits',  3.11)
+ (1986, 'Americas', 'Canada', 'Wine',  1.33)
+ (1986, 'Europe', 'France', 'Beer',  2.55)
+ (1986, 'Europe', 'France', 'Other',  0.25)
+ (1986, 'Europe', 'France', 'Spirits',  2.71)
+ (1986, 'Europe', 'France', 'Wine', 10.62)]
+#+end_example
+
+* Essai 9
+
+#+begin_src python :results output :dir ~/zdata/ia4/
+import numpy as np
+
+dtypeAlcool = np.dtype([('annee', 'i4'), ('region','U80'), ('pays','U80'),('boisson','U40'),('consommation','f4')])
+manquantes = [9999,'Inconnu','Inconnu','Inconnu', 0.0]
+d = np.genfromtxt("world-alcohol.csv", delimiter=",", dtype=dtypeAlcool, skip_header=True, filling_values=manquantes, missing_values=manquantes)
+
+france = np.sort(d[np.where(d['pays'] == 'France')], order='annee')
+canada = np.sort(d[np.where(d['pays'] == 'Canada')], order='annee')
+#franceCanada = d[np.where((d['pays'] == 'France) or d(['pays'] == 'Canada'))]
+franceCanada = d[(d['pays'] == 'France') | (d['pays'] == 'Canada')]
+franceCanada1986 = d[((d['pays'] == 'France') | (d['pays'] == 'Canada')) & (d['annee'] == 1986)]
+biereSup4 = d[(d['boisson'] == 'Beer') & (d['consommation'] > 4.0)]
+biere4 = d[(d['boisson'] == 'Beer') & (d['consommation'] > 4.0)] = 4.0
+
+print(np.sort(franceCanada1986, order='pays'))
+
+#+end_src
+
+#+RESULTS:
+: [(1986, 'Americas', 'Canada', 'Beer',  4.87)
+:  (1986, 'Americas', 'Canada', 'Other',  0.  )
+:  (1986, 'Americas', 'Canada', 'Spirits',  3.11)
+:  (1986, 'Americas', 'Canada', 'Wine',  1.33)
+:  (1986, 'Europe', 'France', 'Beer',  2.55)
+:  (1986, 'Europe', 'France', 'Other',  0.25)
+:  (1986, 'Europe', 'France', 'Spirits',  2.71)
+:  (1986, 'Europe', 'France', 'Wine', 10.62)]
+
+* Vectorisation
+#+begin_src python
+import numpy as np
+print(np.arange(1,4) * np.arange(1,4)[::-1])
+print(np.arange(1,4))
+print(type(np.arange(1,4)))
+
+#+end_src
+
+#+RESULTS:
+: [3 4 3]
+: [1 2 3]
+: <class 'numpy.ndarray'>
+
+* One hot encoding
+
+#+begin_src python
+import numpy as np
+a = np.arange(0,8)
+print(a[:4])
+b = a[..., None] == np.arange(len(a))[None]
+print(b.astype(np.float64))
+#+end_src
+
+
+
+#+RESULTS:
+: [0 1 2 3]
+: [[1. 0. 0. 0. 0. 0. 0. 0.]
+:  [0. 1. 0. 0. 0. 0. 0. 0.]
+:  [0. 0. 1. 0. 0. 0. 0. 0.]
+:  [0. 0. 0. 1. 0. 0. 0. 0.]
+:  [0. 0. 0. 0. 1. 0. 0. 0.]
+:  [0. 0. 0. 0. 0. 1. 0. 0.]
+:  [0. 0. 0. 0. 0. 0. 1. 0.]
+:  [0. 0. 0. 0. 0. 0. 0. 1.]]
+
+* split
+
+#+begin_src python
+import numpy as np
+a = np.arange(1,101)
+train, validation, test = np.split(a, [int(len(a)*0.6), int(len(a)*0.8)])
+print(len(train))
+print(len(validation))
+print(len(test))
+
+# parts égales
+b= np.arange(1,100)
+b1, b2, b3 = np.split(b, 3)
+print(len(b1))
+print(len(b2))
+print(len(b3))
+
+
+c = np.arange(1,1000)
+ctrain, cvalidation, ctest = np.split(c, [int(len(c)*0.7), int(len(c)*0.85)])
+print(len(ctrain))
+print(len(cvalidation))
+print(len(ctest))
+
+#+end_src
+
+#+RESULTS:
+: 60
+: 20
+: 20
+: 33
+: 33
+: 33
+: 699
+: 150
+: 150
+
+#+begin_src python
+import numpy as np
+_ = print
+donnes = np.zeros((20, 78))
+
+#_(donnes[0])
+#cartes = np.random.choice(78, size=(20, 18), replace=False)
+#donnes[np.arange(20)[:, None], cartes] = 1.
+#_(type(cartes))
+#_(np.random.choice(78, size=(20, 18)))
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.
+ 0. 0. 0. 0. 0. 0.]
+[[ 7 70 12 28 39 75 28  4 19 31 64 31 23 34 18 16 52 30]
+ [54 73 59  8  1 36  5 50 42 59 57 26 63 70 67 18 18 76]
+ [77 66 70 63  4 31  4 45 55 42 69 45 65 21 45 29 77 44]
+ [32 58 61 52 68  5 27 50 14 18 77 33 55 20 45 26 51  4]
+ [28 30 11 55 25 58  9 71 50 64 31 36 15 51 18 25 73 40]
+ [26 71  0 53 71 51 27 56 50  2 43 47 58  1 72 49 71  1]
+ [18 56 42 31 71 32 36 49 74  0  1 50 68 43 68 25 70 58]
+ [21  7  4 60 51 35 21 11 52 49 52 38 29 42 12  3 26 61]
+ [57  3 14  1 76 47 35 77 55 23  7 56  5 76 18 75  1 71]
+ [52 74 27  0 10 35 17 76 70 49 34 69 35 10 75 19 76 71]
+ [77 27 30  0 72 55 54 49  0 46  7 50  3 69 45 12 27 19]
+ [53 44 12 36 71 68 27  7 71 12  2 19  5 29  2 24 64 70]
+ [50 63 27 60 23 67 54 55 41 18 14 77 12 55 42 25 54 24]
+ [11 74 35  4 77 44 18  2 72  3 54 45 52 13  4 38 49 27]
+ [71 37 23 47 17 45 25 29 62 19  8 51 66 42 77 75 47 65]
+ [58 21 20 29 13 58 36 33  5 51 31 64 31 49 75 23  6 77]
+ [26 20 25 45 36 46 12 20 28 16 14 61 33 30 53 61 29 30]
+ [ 0 59 48 53  8 31 40 44 60 51  0 75  9 33 73 53 19  8]
+ [37 37 21 12 37 70 44 46  8 19 28 40 70 11 77 25 58 77]
+ [10 57 18 20 59  2  6 56 67 61 10 41 73  4  1 42 55 30]]
+#+end_example
+
+
+#+begin_src python
+import pandas as pd
+import numpy as np
+_ = print
+a = pd.Series([10,9,6,3,1,2,12,8,13])
+b = a.to_numpy()[:,None]
+c = b.reshape((3,3))
+d = b.reshape((-1,3))
+_(type(a), a.shape)
+_(type(b), b.shape)
+_(c)
+_(d)
+#+end_src
+
+#+RESULTS:
+: <class 'pandas.core.series.Series'> (9,)
+: <class 'numpy.ndarray'> (9, 1)
+: [[10  9  6]
+:  [ 3  1  2]
+:  [12  8 13]]
+: [[10  9  6]
+:  [ 3  1  2]
+:  [12  8 13]]
+
+#+begin_src python
+import pandas as pd
+import numpy as np
+_ = print
+a = pd.Series([10,9,6,3,1,2,12,8,13])
+b = pd.Series([1,3,10,78])
+m = a.to_numpy() == b.to_numpy()[:,None]
+n = b.to_numpy() == a.to_numpy()[:,None]
+_(m*1.0)
+_(n*1.0)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[[0. 0. 0. 0. 1. 0. 0. 0. 0.]
+ [0. 0. 0. 1. 0. 0. 0. 0. 0.]
+ [1. 0. 0. 0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0. 0. 0. 0.]]
+[[0. 0. 1. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 1. 0. 0.]
+ [1. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+#+end_example
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+plt.plot(np.random.randn(50).cumsum())
+plt.show()
+#+end_src
+
+#+begin_src python
+print(3/2)
+print(3//2)
+print(3&2)
+print(3|2)
+print(3^2)
+
+#+end_src
+
+#+RESULTS:
+: 1.5
+: 1
+: 2
+: 3
+: 1
+
+
+#+begin_src python
+import numpy as np
+import pandas as pd
+a = np.arange(12).tolist()
+b = np.arange(15).reshape((-1,3))
+print(a)
+print(b)
+print(b.dtype)
+
+c = np.zeros((2,3,4))
+print(c.shape, c.dtype)
+d = b * b
+print(d)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+[[ 0  1  2]
+ [ 3  4  5]
+ [ 6  7  8]
+ [ 9 10 11]
+ [12 13 14]]
+int64
+(2, 3, 4) float64
+[[  0   1   4]
+ [  9  16  25]
+ [ 36  49  64]
+ [ 81 100 121]
+ [144 169 196]]
+#+end_example
+
+#+begin_src python
+import numpy as np
+a = np.arange(9).reshape((-1, 3))
+print(a)
+print(a[2])
+print(a[0][2])
+print(a[0,2])
+print(a[1])
+print(a[1,2])
+
+#+end_src
+
+#+RESULTS:
+: [[0 1 2]
+:  [3 4 5]
+:  [6 7 8]]
+: [6 7 8]
+: 2
+: 2
+: [3 4 5]
+: 5
+
+
+#+begin_src python
+import numpy as np
+a = np.arange(1,13).reshape((-1,3, 2))
+print(a[1].shape)
+#a[1] = 123
+print(a)
+print(a[1, :1])
+
+
+#+end_src
+
+#+RESULTS:
+: (3, 2)
+: [[[ 1  2]
+:   [ 3  4]
+:   [ 5  6]]
+: 
+:  [[ 7  8]
+:   [ 9 10]
+:   [11 12]]]
+: [[7 8]]
+
+
+#+end_src
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+taille = 3
+a = np.zeros((taille,taille))
+#print(a)
+a[:2, 1:] = 1
+a[-2] = 1
+print(a)
+plt.matshow(a)
+plt.axis('off')
+plt.show()
+#+end_src
+
+#+RESULTS:
+: [[0. 1. 1.]
+:  [1. 1. 1.]
+:  [0. 0. 0.]]
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+taille = 5
+a = np.zeros((taille, taille))
+a[1:-1, 1:-1] = 1
+a[0] = 2
+a[-1] = 2
+a[1:-1, 0] = 2
+a[1:-1, -1] = 2
+_(a)
+
+#+end_src
+
+#+RESULTS:
+: [[0. 0. 0. 0. 0.]
+:  [2. 1. 1. 1. 2.]
+:  [2. 1. 1. 1. 2.]
+:  [2. 1. 1. 1. 2.]
+:  [2. 2. 2. 2. 2.]]
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+taille = 5
+a = np.zeros((taille, taille))
+a[1:-1,1:-1] = 2
+a[2,2] = 1
+_(a)
+plt.matshow(a)
+plt.axis('off')
+plt.show()
+#+end_src
+
+#+RESULTS:
+: [[0. 0. 0. 0. 0.]
+:  [0. 2. 2. 2. 0.]
+:  [0. 2. 1. 2. 0.]
+:  [0. 2. 2. 2. 0.]
+:  [0. 0. 0. 0. 0.]]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+
+a = np.array(['Bordeaux','Poitiers','Niort','Angoulême','Limoges','Guéret','Mont de Marsan','Pau','Bergerac'])
+b = np.random.randn(a.shape[0],4)
+#a == 'Niort'
+_((a == 'Pau') | (a == 'Niort'))
+_(b)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[False False  True False False False False  True False]
+[[-0.84409642 -0.83281483 -1.7614497  -0.53004257]
+ [-2.00639734 -1.00664918 -0.90660822 -1.27497044]
+ [-0.20821976  0.44768393  0.64427511 -1.06823933]
+ [ 0.5800069   1.78752142  1.63434628  0.0499318 ]
+ [ 1.71448659  0.05072188  0.05280325  0.55423336]
+ [ 0.05005705  1.74002153 -1.30844712  2.38008378]
+ [ 0.76058107  0.69636205  1.43154071  0.13180627]
+ [-1.34225548 -0.93361399 -0.96001024 -0.05095294]
+ [ 0.73309927 -0.35236983 -0.07581812  1.71538013]]
+#+end_example
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+#a = np.empty((8,5))
+a = np.zeros((8,5))
+for x in range(a.shape[0]):
+    a[x][0] = x - 5
+    a[x][1] = 3*x 
+    a[x][-3] = x+x
+    a[x][-2] = x
+    a[x][-1] = x*x
+    
+_(a.min(), a.max(), a[1].mean())
+#+end_src
+
+#+RESULTS:
+: -5.0 49.0 0.6
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+#a = np.arange(1,33).reshape(8,4)
+a = np.arange(32).reshape(8,4)
+_(a)
+_(a[[1,5,7,2], [0,3,1,2]])
+#+end_src
+
+#+RESULTS:
+: [[ 0  1  2  3]
+:  [ 4  5  6  7]
+:  [ 8  9 10 11]
+:  [12 13 14 15]
+:  [16 17 18 19]
+:  [20 21 22 23]
+:  [24 25 26 27]
+:  [28 29 30 31]]
+: [ 4 23 29 10]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.arange(15).reshape((3,5))
+_(a)
+_(a.T.shape)
+_(a.T)
+#+end_src
+
+#+RESULTS:
+: [[ 0  1  2  3  4]
+:  [ 5  6  7  8  9]
+:  [10 11 12 13 14]]
+: (5, 3)
+: [[ 0  5 10]
+:  [ 1  6 11]
+:  [ 2  7 12]
+:  [ 3  8 13]
+:  [ 4  9 14]]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+
+a = np.arange(1,10).reshape(3,3)
+_(a)
+_(a.T)
+_(np.dot(a.T,a))
+#+end_src
+
+#+RESULTS:
+: [[1 2 3]
+:  [4 5 6]
+:  [7 8 9]]
+: [[1 4 7]
+:  [2 5 8]
+:  [3 6 9]]
+: [[ 66  78  90]
+:  [ 78  93 108]
+:  [ 90 108 126]]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.arange(10)
+_(np.sqrt(a).reshape(5,2))
+_(np.exp(a).reshape(2,5))
+
+#+end_src
+
+#+RESULTS:
+: [[0.         1.        ]
+:  [1.41421356 1.73205081]
+:  [2.         2.23606798]
+:  [2.44948974 2.64575131]
+:  [2.82842712 3.        ]]
+: [[1.00000000e+00 2.71828183e+00 7.38905610e+00 2.00855369e+01
+:   5.45981500e+01]
+:  [1.48413159e+02 4.03428793e+02 1.09663316e+03 2.98095799e+03
+:   8.10308393e+03]]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+x = np.random.randn(10)
+y = np.random.randn(10)
+_(x)
+_(y)
+_(np.maximum(x,y).reshape(5,2))
+  
+#+end_src
+
+#+RESULTS:
+: [ 1.04107247 -1.54368086  0.06741947 -0.84887433 -0.28898967 -0.36885959
+:   1.35713213  0.44217322 -0.21642777 -0.08960287]
+: [ 0.1810014  -0.1683132   1.27518186  1.18587195 -1.00017573 -0.31930306
+:   0.57351916 -0.29895349  1.10970207 -0.84231987]
+: [[ 1.04107247 -0.1683132 ]
+:  [ 1.27518186  1.18587195]
+:  [-0.28898967 -0.31930306]
+:  [ 1.35713213  0.44217322]
+:  [ 1.10970207 -0.08960287]]
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+points = np.arange(-5,5,0.01)
+xs,ys = np.meshgrid(points,points)
+z = np.sqrt(xs**2 + ys**2)
+
+plt.imshow(z, cmap=plt.cm.gray); plt.colorbar()
+plt.title('Dessin de $\sqrt{x^2 + y^2}$')
+plt.show()
+#+end_src
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+
+x_ = np.array([1.1,1.2,1.3,1.4,1.5])
+y_ = np.array([2.1,2.2,2.3,2.4,2.5])
+conditions = np.array([True, False, True, True, False])
+# Solution lente et inefficace avec tableaux à plusieurs dimensions
+#resultats = [x if conditions else y for x,y,conditions in zip(x_,y_,conditions)]
+#_(resultats)
+
+resultats = np.where(conditions, x_, y_)
+_(resultats)
+#+end_src
+
+#+RESULTS:
+: [1.1 2.2 1.3 1.4 2.5]
+
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.random.randn(5,5)
+_(a)
+_(a>0)
+_(np.where(a>0, 1, -1))
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[[-1.19473442  0.82690852  1.00948752  0.03151695 -0.71241046]
+ [ 1.83143951  1.57733316 -1.29834609  0.3085081  -0.38638004]
+ [-0.82849197 -0.07893406 -1.11483396  1.37146929 -0.70128436]
+ [ 0.04023532 -0.22578684  0.60339595 -1.17372513 -0.47294247]
+ [ 0.45617586 -0.96661367 -0.0514968   0.31999361 -0.4399959 ]]
+[[False  True  True  True False]
+ [ True  True False  True False]
+ [False False False  True False]
+ [ True False  True False False]
+ [ True False False  True False]]
+[[-1  1  1  1 -1]
+ [ 1  1 -1  1 -1]
+ [-1 -1 -1  1 -1]
+ [ 1 -1  1 -1 -1]
+ [ 1 -1 -1  1 -1]]
+#+end_example
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.random.randn(6,8)
+#_(a.mean(), a.max(), a.min(), a.sum())
+_(np.mean(a), a.mean(axis=1), a.mean(axis=0))
+#+end_src
+
+#+RESULTS:
+: 0.07586864290181422 [-0.41371763  0.29176126  0.31027261  0.0504854  -0.23760801  0.45401823] [-0.2013675  -0.29105885 -0.02034068  0.45099421 -0.35244376 -0.18242758
+:   0.43218361  0.77140969]
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.array([False, False, True, False])
+_(a.all())
+#+end_src
+
+#+RESULTS:
+: False
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = np.random.randn(40)
+# _(a)
+# _(a.sort())
+b = np.arange(1,9).reshape((2,4))
+_(b)
+_(b*b)
+_(np.dot(b,b))
+#+end_src
+
+#+RESULTS:
+: [[1 2 3 4]
+:  [5 6 7 8]]
+: [[ 1  4  9 16]
+:  [25 36 49 64]]
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+chaine = 'abcdefghi'
+a = pd.Series(np.arange(1,len(chaine)+1), index = list(chaine))
+b = a.drop('c')
+_(b)
+#+end_src
+
+#+RESULTS:
+: a    1
+: b    2
+: d    4
+: e    5
+: f    6
+: g    7
+: h    8.
+: i    9
+: dtype: int64
+
+
+#+begin_src python
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+_ = print
+a = pd.DataFrame(np.arange(1,17).reshape((4,4)), index = list('ABCD'), columns=['Un','Deux','Trois','Quatre'])
+_(a)
+_(a.loc['A', ['Trois','Quatre']])
+_(a.iloc[0, 1:])
+#+end_src
+
+#+RESULTS:
+#+begin_example
+   Un  Deux  Trois  Quatre
+A   1     2      3       4
+B   5     6      7       8
+C   9    10     11      12
+D  13    14     15      16
+Trois     3
+Quatre    4
+Name: A, dtype: int64
+Deux      2
+Trois     3
+Quatre    4
+Name: A, dtype: int64
+#+end_example

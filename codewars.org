@@ -1,0 +1,3200 @@
+#+begin_src python :results output
+  a = ['un','deux','trois','quatre']
+  iterateur = map(lambda x: x[::-1], a)
+  print(iterateur)
+  tous = [x for x in iterateur]
+  t2 = [x for x in map(lambda x: x[::-1], a)]
+  #print(tous)
+  print(t2)
+#+end_src
+
+
+#+begin_src python :results output
+  import math
+  def narcissistic_number_p(envoi):
+    longueur = len(envoi)
+    liste = [int(x) for x in envoi]
+    puissances = [math.pow(x, longueur) for x in liste]
+    return True if envoi == str(int(sum(puissances))) else False
+
+  print(narcissistic_number_p('4324'))
+  print(narcissistic_number_p('153'))
+#+end_src
+
+
+#+begin_src python :results output
+  import math
+
+  def narcissistic(nombre):
+      liste = [int(x) for x in str(nombre)]
+      longueur = len(liste)
+      puissances = [math.pow(x, longueur) for x in liste]
+      return True if nombre == int(sum(puissances)) else False
+
+  print(narcissistic(153))
+  print(narcissistic(411))
+#+end_src
+
+
+#+begin_src python :results output
+  def even_or_odd(nombre):
+    return "Even" if nombre %2 == 0 else "Odd"
+
+  print(even_or_odd(12))
+  print(even_or_odd(13))  
+#+end_src
+
+#+begin_src python :results output
+
+  def count_positives_sum_negatives(arr):
+
+      retour = []
+
+      if not arr:
+          return retour
+      else :
+          p = [x for x in arr if x > 0]
+          nombres_positifs = len(p)
+          n = [x for x in arr if x < 0]
+          somme_negatifs = sum(n)
+          retour = [nombres_positifs, somme_negatifs]
+      return retour
+
+  print(count_positives_sum_negatives([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15]))
+  print(count_positives_sum_negatives([]))
+#+end_src
+
+
+#+begin_src python :results output
+  def bin_to_decimal(chaine):
+
+      tri = [x for x in chaine if x == '1' or x == '0']
+      return int(''.join(tri), 2)
+
+  print(bin_to_decimal('1011011'))
+#+end_src
+
+#+begin_src python :results output
+  from itertools import combinations
+
+  a = combinations([1,2,3], 2)
+  b = [x for x in a]
+  print(b)
+#+end_src
+
+#+begin_src python :results output
+  from itertools import combinations
+
+  def find_mult_3(num):
+    chiffres = [int(x) for x in str(num)]
+    liste = [combinations(chiffres, x) for x in range(len(chiffres))]
+    tous = [list(x) for x in liste]
+    return tous
+    #return list(tous)
+    #return chiffres
+
+  print(find_mult_3(362))
+#+end_src
+
+#+begin_src python :results output
+from itertools import combinations
+
+def find_mult_3(num):
+      chiffres = [int(x) for x in str(num)]
+      liste = [combinations(chiffres, x) for x in range(len(chiffres))]
+      print(list(liste))
+      #tous = [list(x) for x in liste if len(x) > 0]
+      #tous = map(list, liste)
+      #return tous
+print(find_mult_3(362))
+#+end_src
+
+#+RESULTS:
+: [<itertools.combinations object at 0x7f06455b84f0>, <itertools.combinations object at 0x7f06450df740>, <itertools.combinations object at 0x7f06450ff880>]
+: None
+
+
+#+begin_src python :results output
+  a = 'abracadabra'
+  sa = set(a)
+  print(sorted(list(sa)))
+#+end_src
+
+#+begin_src python :results output
+  n = list(range(10))
+  #return f'($a{0}$a{1}$a{2}) $a{3
+  print(f'({n[0]}{n[1]}{n[2]}) {n[3]}{n[4]}{n[5]}-{n[6]}{n[7]}{n[8]}{n[9]}')
+#+end_src
+
+
+#+begin_src python :results output
+  import re
+
+  def disemvowel(chaine):
+    return re.sub("[aeiouAEIOU]+", "", chaine)
+
+  print(disemvowel("alberto toscanini"))
+#+end_src
+
+#+begin_src python :results output
+  def square_digits(n):
+    a = [str(int(x)**2) for x in list(str(n))]
+    return int(''.join(a))
+
+  print(square_digits(9119))
+#+end_src
+
+#+begin_src python :results output
+
+  def odd_or_even(arr):
+      return "odd" if sum(arr)%2==1 else "even"
+#+end_src
+
+#+begin_src python :results output
+  def maskify(chaine):
+    retour = chaine
+
+    if len(chaine) > 4:
+      fin = chaine[-4:]
+      masque = ['#' for x in range(len(chaine) -4)]
+      retour = "".join(masque) + fin
+    return retour
+
+  print(maskify('64607935616'))
+  print(maskify('1'))
+#+end_src
+
+
+#+begin_src python :results output
+    a = 'albertine'
+    print(a[-4:])
+#+end_src
+
+
+#+begin_src python :results output
+  def find_shorts(s):
+    liste = sorted(s.split(), key=len)
+    return liste[0]
+
+  print(find_shorts('albertine bob louis charles'))
+#+end_src
+
+#+begin_src python :results output
+  def find_shorts(s):
+    liste = s.split()
+    return min(liste, key=len)
+
+  print(find_shorts('albertine bob louis charles'))
+#+end_src
+
+
+#+begin_src python :results output
+
+  def find_outliers(envoi):
+      pairs = [x for x in envoi if x%2 == 0]
+      impairs = [x for x in envoi if x%2 == 1]
+      
+      return impairs[0] if len(pairs)> len(impairs) else pairs[0]
+
+  print(parityOutlier([2, 4, 0, 100, 4, 11, 2602, 36]))
+#+end_src
+
+#+begin_src python :results output
+  import re
+
+  a = 'trieste4'
+  #a = '432LaFrite'
+  #a = 'val4ence13agen86'
+  #a = 'libourne'
+
+  presence_p = re.findall(r'\d+$', a)
+  n = int(presence_p[0]) if len(presence_p)  else 0
+  print(n * 10)
+#+end_src
+
+#+begin_src python :results output
+    a = 'albertine'
+    print(a[:-2])
+#+end_src
+
+#+RESULTS:
+: alberti
+
+
+
+#+begin_src python :results output
+  def increment_string(c):
+    dernier = c[-1:]
+    print(int(dernier)+1)
+    return f'{c[:-1]}{(int(dernier)+1)}' if isinstance(int(c[-1:]), int) else f'{c[:-1]}1' 
+
+    #return c[-1:]
+  print(increment_string('blip49'))
+#+end_src
+
+#+begin_src python :results output
+  import re
+
+  def increment_string(c):
+      liste = re.findall(r'\d+$', c)
+      nombre = liste[0] if len(liste) > 0 else 1
+      taille = len(liste[0]) if len(liste) > 0 else 0
+      #nombre = f'{c[-len(liste):]}{(1 + int(liste[0]))}' if len(liste) else 1
+      return f'{c[:-taille]}{int(nombre)+1}' if taille > 0 else f'{c}{nombre}'
+
+      #return nombre
+
+  print(increment_string('alberto23'))
+
+#+end_src
+
+#+begin_src python :results output
+
+  a = 'alberto1230a'
+  print(a[-1].isdigit())
+#+end_src
+
+#+begin_src python :results output
+  import re
+
+  def increment_string(c):
+      liste = re.findall(r'\d+$', c)
+      nombre = liste[0] if len(liste) > 0 else 1
+      taille = len(liste[0]) if len(liste) > 0 else 0
+      return f'{c[:-taille]}{str(int(nombre)+1).zfill(taille)}' if taille > 0 else f'{c}{nombre}'
+
+  print(increment_string('alberto1'))
+  print(increment_string('alberto'))
+  print(increment_string('foo0043'))  
+#+end_src
+
+
+#+begin_src python :results output
+  def ay(chaine):
+    #return f'{chaine[1:]}{chaine[:1].upper()}ay'
+      return f'{chaine[1:]}{chaine[:1]}ay'
+
+  def pig_it(chaine):
+    liste = chaine.split()
+    #retour = [ay(x) for x in liste if len(x) > 1 else x]
+    retour = [ay(x) if len(x) > 1 else x for x in liste]
+    return ' '.join(retour)#.join('')
+
+  print(pig_it('Pig latin is cool'))
+  print(pig_it('Hello world !'))
+  # print(ay('louis'))
+  # print(ay('Pig'))
+#+end_src
+
+#+begin_src python :results output
+  def pig_it(chaine):
+    ay = lambda x: f'{x[1:]}{x[:1]}ay'
+    ponctuation = lambda x: x if x in ['!',',',';',':','?','.'] else ay(x)
+    #retour = [ay(x) if len(x) > 1 else x for x in chaine.split()]
+    retour = [ay(x) if len(x) > 1 else ponctuation(x) for x in chaine.split()]
+    return ' '.join(retour)
+
+  print(pig_it('Pig latin is cool'))
+  print(pig_it('Hello world !'))
+  print(pig_it("O tempora o mores !"))
+#+end_src
+
+#+begin_src python :results output
+  def pig_it(chaine):
+      ay = lambda x: f'{x[1:]}{x[:1]}ay'
+      ponctuation = lambda x: x if x in ['!',',',';',':','?','.'] else ay(x)
+      retour = [ay(x) if len(x) > 1 else ponctuation(x) for x in chaine.split()]
+      return ' '.join(retour)
+
+  print(pig_it('Pig latin is cool'))
+  print(pig_it('Hello world !'))
+  print(pig_it("O tempora o mores !"))  
+#+end_src
+
+#+RESULTS:
+: igPay atinlay siay oolcay
+: elloHay orldway !
+: Oay emporatay oay oresmay !
+
+
+#+begin_src python :results output
+# positif = lambda x: x > 0
+# negatif = lambda x: x < 0
+liste = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, -11, -12, -13, -14, -15]
+positifs = [x for x in liste if x > 0]
+negatifs = [x for x in liste if x < 0]
+retour = [sum(positifs), sum(negatifs)]
+vide = []
+print(sum(vide))
+print(retour)
+#+end_src
+
+#+RESULTS:
+: 0
+: [55, -65]
+
+#+begin_src python :results output
+#from functools import reduce
+import collections
+a = 'électricité'
+c = collections.Counter(a)
+listeIndex = [(x[0],x[1]) for x in enumerate(a)]
+print(c)
+print(listeIndex)
+#+end_src
+
+#+begin_src python :results output
+
+a = [(1,2,4), (1,4,5), (3,3,1), (5,0,1)]
+#tri = lambda x,y: x[1] - y[1]
+tri0 = lambda x: x[0]
+tri1 = lambda x: x[1]
+tri2 = lambda x: x[2]
+
+b = sorted(a, key=tri)
+print(a)
+print(b)
+#+end_src
+
+#+RESULTS:
+: [(1, 2, 4), (1, 4, 5), (3, 3, 1), (5, 0, 1)]
+: [(5, 0, 1), (1, 2, 4), (3, 3, 1), (1, 4, 5)]
+
+
+#+begin_src emacs-lisp
+(directory-files ".")
+#+end_src
+
+#+begin_src sh :dir /home/claude/atelier/
+ls  *.org
+
+#+end_src
+
+#+RESULTS:
+| agileSkillsUp.org |
+| ardoise.org       |
+| bibliographie.org |
+
+
+Moving Zeros To The End
+#+begin_src python :results output
+a = [1, 0, 1, 2, 0, 1, 3]
+nonzero = [x for x in a if x != 0]
+zeros = [x for x in a if x == 0]
+retour = nonzero + zeros
+
+print(retour)
+
+def move_zeros(liste):
+    nonzeros = [x for x in liste if x != 0]
+    zeros = [x for x in liste if x == 0]
+    return nonzeros + zeros
+#+end_src
+
+#+RESULTS:
+: [1, 1, 2, 1, 3, 0, 0]
+
+
+Get the middle character
+#+begin_src python :results output
+a = 'bilbo'
+#chaine = 'agatha'
+chaine = "étages"
+taille = len(chaine)//2
+chaine2 = "évier"
+taille2 = len(chaine2)
+print(len(chaine), len(chaine)//2)
+print(chaine[taille-1:taille+1])
+
+print(taille2, taille2//2)
+print(chaine2[(taille2//2):1 + (taille2//2)])
+
+def get_middle2(s):
+    t = len(s)
+    t2 = len(s)//2
+    return s[len(s)-1:len(s)] if t%2 == 0 else s[t2:1+t2]
+
+def get_middle(s):
+    return len(s)
+
+print(get_middle("test"))
+#+end_src
+
+#+begin_src python :results output
+def get_middlePair(s):
+    return s[(len(s)//2) - 1:(len(s)//2)+1]
+
+def get_middleImpair(s):
+    return s[(len(s)//2): 1 + len(s)//2]
+
+def get_middle(s):
+    return s[(len(s)//2) - 1:(len(s)//2)+1] if len(s)%2 == 0 else s[(len(s)//2): 1 + len(s)//2]
+
+print(get_middlePair("test"))
+print(get_middlePair("gs"))
+
+print(get_middleImpair("grise"))
+print(get_middleImpair("rouge"))
+
+print(get_middle("test"))
+print(get_middle("testa"))
+#+end_src
+
+
+#+begin_src python :results output
+
+def hex_string_to_RGB(s):
+    r = int(s[1:3],16)
+    g = int(s[3:5],16)
+    b = int(s[5:7],16)
+    return {'r':r, 'g':g, 'b':b}
+
+print(hex_string_to_RGB("#ff9933"))    
+
+#+end_src
+
+#+RESULTS:
+: {'r': 255, 'g': 153, 'b': 51}
+
+
+#+begin_src python :results output
+#print(int("1234567777"))
+import numpy as np
+import sys
+
+sys.set_int_max_str_digits(0)
+#a = np.fromstring("1345624524"+"00930984394343093", dtype=int)
+# a = np.fromstring("1345624524"+"00930984394343093", dtype=int)
+# a = np.fromstring("1345624524" + "00930984394343093", dtype=int)
+#a = str(sum(np.asarray(["1345624524", "00930984394343093"])))
+#print(int("134562452423424234314513451"))
+#print(a)
+
+# b = np.sum([x.astype(int) for x in np.asarray(["1345624524", "00930984394343093"])])
+# print(b)
+
+liste = np.asarray(["1345624524", "00930984394343093"]).astype('int64')
+print(str(sum(liste)))
+
+def sum_strings(x,y):
+    liste = np.asarray([x,y]).astype('float')
+    return str(sum(liste))
+
+
+#+end_src
+
+#+RESULTS:
+: 930985739967617
+
+
+to increase the limit
+
+
+#+begin_src python :results output
+pair = lambda x: x /2
+impair = lambda x : (3*x) + 1
+
+pair_impair_p = lambda x: pair(x) if x%2 == 0 else impair(x)
+
+valeur = 23
+
+compteur = 0
+
+while valeur > 1:
+    valeur = pair_impair_p(valeur)
+    compteur += 1
+    print(valeur, compteur)
+    #print(pair_impair_p(valeur))
+
+# def boucle(n, c):
+#     if n == 1 return c
+
+def hotpo(n):
+    pair = lambda x: x /2
+    impair = lambda x : (3*x) + 1
+    pair_impair_p = lambda x: pair(x) if x%2 == 0 else impair(x)
+
+    compteur = 0
+
+    while n>1:
+        n = pair_impair_p(n)
+        compteur += 1
+    return compteur
+    
+#+end_src
+
+#+begin_src python :results output
+def hotpo(n):
+    pair = lambda x: x /2
+    impair = lambda x : (3*x) + 1
+    pair_impair_p = lambda x: pair(x) if x%2 == 0 else impair(x)
+
+    compteur = 0
+
+    while n>1:
+        n = pair_impair_p(n)
+        compteur += 1
+    return compteur
+
+print(hotpo(1))
+print(hotpo(5))
+print(hotpo(6))
+print(hotpo(23))
+print(hotpo(20))
+print(hotpo(3))
+#+end_src
+
+#+RESULTS:
+: 0
+: 5
+: 8
+: 15
+: 7
+: 7
+
+#+begin_src python :results output
+a = [1,2,3,4,5]
+b = [1,3,5,6]
+print(set(a).intersection(b))
+
+c1 = [1,2,3]
+c2 = [5,3,2]
+c3 = [7,3,2]
+print(set(c1).intersection(c2).intersection(c3))
+
+def common(a,b,c):
+    return sum(list(set(a).intersection(b).intersection(c)))
+
+print(common([1,2,3],[5,3,2],[7,3,2]))
+print(common([1,2,2,3],[5,3,2,2],[7,3,2,2]))
+#+end_src
+
+#+begin_src python :results output
+import numpy as np
+from functools import reduce 
+def common(a,b,c):
+    communs = reduce(np.intersect1d, (a,b,c))
+    return sum(communs)
+
+
+print(common([1,2,3],[5,3,2],[7,3,2]))
+print(common([1,2,2,3],[5,3,2,2],[7,3,2,2]))
+
+#+end_src
+
+#+RESULTS:
+: 5
+: 5
+
+#+begin_src python :results output
+a = list('albert')
+b = " ".join(a)
+#print(list(a))
+print(b)
+#print(a.split())
+c = 'albert'
+d = [list(x) for x in c.split()]
+e = " ".join(d)
+print(e)
+#+end_src
+
+#+begin_src python :results output
+a = "My name is John".split()
+b = [".".join(list(x)) for x in a]
+print(b)
+
+#+end_src
+
+#+RESULTS:
+: ['M.y', 'n.a.m.e', 'i.s', 'J.o.h.n']
+
+
+#+begin_src emacs-lisp
+(/ 115 1.15)
+#+end_src
+
+#+RESULTS:
+: 100.00000000000001
+
+#+begin_src python :results output
+
+#+end_src
+
+#+begin_src python :results output
+print('ß'.upper())
+a = 'ß'
+b = a.upper()
+print(len(a),len(b))
+#+end_src
+
+#+RESULTS:
+: SS
+: 1 2
+
+#+begin_src python :results output
+def flick_switch(lst):
+    return  [True if x == 'flick' else False for x in lst]
+
+print(flick_switch(["dsfs","dfqsdfqsk","poiezr","flick"]))
+#+end_src
+
+#+RESULTS:
+: [False, False, False, True]
+
+#+begin_src python :results output
+import operator
+
+operateurs = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+#print(dir(operator))(
+#print(eval(operateurs.get('+') 3, 4))
+#print(operateurs.get('+')(4,5))
+print(operator.add(9,23))
+print(operateurs.get('+')(5,7))
+
+def basic_op(op, v1, v2):
+    operateurs = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+    operateur = operateurs.get(op, '+')
+    return operateur(v1, v2)
+
+print(basic_op('+', 4, 7))
+print(basic_op('-', 15, 18))
+print(basic_op('*', 5, 5))
+print(basic_op('/', 49, 7))
+
+    
+#+end_src
+
+#+RESULTS:
+: 32
+: 12
+: 11
+: -3
+: 25
+: 7.0
+
+#+begin_src python :results output
+import math
+def litres(time):
+    return math.floor(time * 0.5)
+
+
+print(litres(3))
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src python :results output
+
+def digitize(n):
+    s = str(n)[::-1]
+    retour = [int(x) for x in list(s)]
+    return retour
+
+print(digitize(12))
+#+end_src
+
+#+RESULTS:
+: [2, 1]
+
+#+begin_src python :results output
+
+def is_divisible(n,x,y):
+    return True if n%x == 0 and n%y == 0 else False
+
+print(is_divisible(12,3,4))
+print(12%4)
+#+end_src
+
+#+RESULTS:
+: True
+: 0
+
+#+begin_src python :results output
+
+print(bin(6)[2:])
+
+#+end_src
+
+#+RESULTS:
+: 110
+
+
+#+begin_src python :results output
+import math
+def century(year):
+    return year/100 if year % 100 == 0 else math.floor(year/100) + 1
+
+print(century(1705))
+print(century(1900))
+print(century(1601))
+print(century(2000))
+print(century(356))
+print(century(89))
+#+end_src
+
+#+RESULTS:
+: 18
+: 19.0
+: 17
+: 20.0
+: 4
+: 1
+
+#+begin_src python :results output
+a = [3, 4, 4, 3, 6, 3]
+b = set(a[::-1])
+print(a)
+print(b)
+print(a[::-1])
+#+end_src
+
+#+RESULTS:
+: [3, 4, 4, 3, 6, 3]
+: {3, 4, 6}
+: [3, 6, 3, 4, 4, 3]
+
+#+begin_src python :results output
+xn = lambda x,n : sum([int(chiffre)**n for chiffre in list(str(x))])
+
+print(xn(420, 3))
+
+def sum_pow_dig_seq(x, n, k):
+    xn = lambda x,n : sum([int(chiffre)**n for chiffre in list(str(x))])
+
+    retour = 0
+
+    while k > 0:
+        #retour += xn(x,n)
+        t = xn(x,
+        k -=1
+
+    return retour
+
+print(sum_pow_dig_seq(420, 3, 5)-)
+    
+#+end_src
+
+
+#+begin_src python :results output
+
+def recursion(valeur, nombre):
+    print(valeur, nombre)
+    if nombre == 0:
+        return valeur
+    else :
+        return recursion(valeur + 5, nombre - 1)
+
+print(recursion(10, 4))
+#+end_src
+
+#+RESULTS:
+: 10 4
+: 15 3
+: 20 2
+: 25 1
+: 30 0
+: 30
+
+#+begin_src python :results output
+
+def sum_pow_dig_seq(x,n,k):
+    
+    xn = lambda x,n : sum([int(chiffre)**n for chiffre in list(str(x))])
+    print(x)
+    if k == 0:
+        return x
+    else:
+        return sum_pow_dig_seq(xn(x,n),n,k - 1)
+
+print(sum_pow_dig_seq(420, 3, 5))
+print(sum_pow_dig_seq(420, 4, 33))    
+#+end_src
+
+#+begin_src python :results output
+a = ["Telescopes", "Glasses", "Eyes", "Monocles"]
+b = ['beg', 'i', 'life', 'to']
+
+print(sorted(a, key=str.casefold))
+print(sorted(b, key=len)) #str.casefold))
+#+end_src
+
+#+RESULTS:
+: ['Eyes', 'Glasses', 'Monocles', 'Telescopes']
+: ['i', 'to', 'beg', 'life']
+
+
+#+begin_src python :results output
+a = [0,0,1,1]
+print(a[::-1])
+b = [x for x in enumerate(a[::-1])]
+c = [2**x[0] for x in enumerate(a[::-1])]
+d = [2**x[0] for x in enumerate(a)]
+print(sum(d))
+#print(int("".join(a)))
+print(int("".join(map(str, a))))
+#print(int("".join(map(str, a))), 2)
+print(bin(12)[2:])
+print(hex(12))
+print(hex(10))
+print(int(0xa))
+#+end_src
+
+#+RESULTS:
+: [1, 1, 0, 0]
+: 15
+: 11
+: 1100
+: 0xc
+: 0xa
+: 10
+
+
+#+begin_src python :results output
+liste = [ 'b', 'c', 'd',  'f', 'g', 'h',  'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't',  'v', 'w', 'x', 'y', 'z']
+
+def consonant_count(s):
+    liste = [ 'b', 'c', 'd',  'f', 'g', 'h',  'j', 'k', 'l', 'm', 'n', 'p','q', 'r', 's', 't',  'v', 'w', 'x', 'y', 'z']
+
+    chaine = list(s.replace(" ","").lower())
+
+    #return sum([1 if x in liste else 0 for x in list(s.replace(" ","").lower()) if x in liste else 0])
+    return sum([1 for x in chaine if x in liste ])
+
+
+print(consonant_count(''))
+print(consonant_count('bob'))
+#+end_src
+
+#+RESULTS:
+: 0
+: 2
+
+
+#+begin_src python :results output
+import re
+#chaine = '12312DSDF34534'
+chaine = 'john.dope@dopington.com'
+a = [x for x in list(chaine) if re.match("[a-zA-Z\s]", x)]
+print(a)
+#+end_src
+
+#+RESULTS:
+: ['j', 'o', 'h', 'n', 'd', 'o', 'p', 'e', 'd', 'o', 'p', 'i', 'n', 'g', 't', 'o', 'n', 'c', 'o', 'm']
+
+#+begin_src python :results output
+print(float(int('FF', 16)))
+#+end_src
+
+#+RESULTS:
+: 255.0
+
+
+#+begin_src python :results output
+a = [1,2]
+b = [2]
+c = [x for x in a if x in a and x in b]
+d = [x for x in a if x not in b]
+print(d)
+#+end_src
+
+#+begin_src python :results output
+import string
+
+#print(dir(string))
+#abc = [(x+1,y) for x,y in enumerate(list(string.ascii_lowercase))]
+abc = {y:x+1 for x,y in enumerate(list(string.ascii_lowercase))}
+#print(abc)
+chaine = "The sunset sets at twelve o' clock."
+b = filter(lambda x: x != '', [abc.get(x, "")  for x in list(chaine.lower())])
+print(list(b))
+#+end_src
+
+#+RESULTS:
+: [20, 8, 5, 19, 21, 14, 19, 5, 20, 19, 5, 20, 19, 1, 20, 20, 23, 5, 12, 22, 5, 15, 3, 12, 15, 3, 11]
+
+#+begin_src python :results output
+a = 1000 + (1000 *  .02) + 50
+print(a)
+
+def nb_year(p0, percent, aug, p):
+
+    compteur = 0
+
+    while p0 <= p:
+
+        p0 = p0  + (p0 * percent / 100.0) + aug
+        compteur += 1
+
+    return compteur
+
+print(nb_year(1500, 5, 100, 5000))
+print(nb_year(1500000, 2.5, 10000, 2000000))
+    
+#+end_src
+
+#+RESULTS:
+: 1070.0
+: 15
+: 10
+
+
+#+begin_src python :results output
+a = 9
+b = -5
+
+minimum, maximum = sorted([a,b])
+#print(c)
+#print(list(range(c)))
+print(list(range(minimum, maximum+1)))
+
+xx = '1111111111111111111'
+print(len(xx))
+print(19*19)
+print(991/19)
+
+#+end_src
+
+#+RESULTS:
+: [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+: 19
+: 361
+: 52.1578947368421
+
+#+begin_src python :results output
+import itertools
+
+c = "AAAABBBCCDAABBBB"
+d = [x for x,_ in itertools.groupby(c)]
+print(d)
+#+end_src
+
+#+RESULTS:
+: ['A', 'B', 'C', 'D', 'A', 'B']
+: <class 'itertools.groupby'>
+
+#+begin_src python :results output
+import itertools
+c = "AAAABBBCCDAABBBB"
+# f1 = itertools.groupby(c)
+# print(type(f1))
+# print(f1.next())
+l1 = [list(g) for k,g in itertools.groupby(c)]
+l2 = [(k,list(g)) for k,g in itertools.groupby(c)]
+print(l1)
+print(l2)
+#+end_src
+
+#+RESULTS:
+: [['A', 'A', 'A', 'A'], ['B', 'B', 'B'], ['C', 'C'], ['D'], ['A', 'A'], ['B', 'B', 'B', 'B']]
+: [('A', ['A', 'A', 'A', 'A']), ('B', ['B', 'B', 'B']), ('C', ['C', 'C']), ('D', ['D']), ('A', ['A', 'A']), ('B', ['B', 'B', 'B', 'B'])]
+
+
+#+begin_src python :results output
+import itertools
+
+def unique_in_order(s):
+    return [x for x,_ in itertools.groupby(s)]
+
+print(unique_in_order("AAAABBBCCDAABBBB"))
+print(unique_in_order([1,2,2,3,3,2,1,3]))
+    
+#+end_src
+
+#+RESULTS:
+: ['A', 'B', 'C', 'D', 'A', 'B']
+: [1, 2, 3, 2, 1, 3]
+
+#+begin_src python :results output
+dico = {'g':'g', 'c':'c', 'a':'a', 't':'u', 'G':'G', 'C':'C', 'A':'A', 'T':'U'}
+def dna_to_rna(dna):
+    return "".join([dico.get(x) for x in dna])
+
+print(dna_to_rna("TTTT"))
+print(dna_to_rna("GCAT"))
+#+end_src
+
+#+begin_src python :results output
+def dna_to_rna(dna):
+    '''https://docs.python.org/3/library/stdtypes.html#str.maketrans'''
+    return dna.translate(dna.maketrans('T','U'))
+
+print(dna_to_rna("TTTT"))
+print(dna_to_rna("GCAT"))
+
+#+end_src
+
+#+RESULTS:
+: UUUU
+: GCAU
+
+#+begin_src python :results output
+import string
+
+def high(chaine):
+    dico = {y:x+1 for x,y in enumerate(string.ascii_lowercase)}
+    calcul = lambda mot: sum([dico.get(lettre, 0) for lettre in list(mot)])
+    liste = chaine.split()
+    conversions = [(mot, calcul(mot)) for mot in liste]
+    return max(conversions, key=lambda x: x[1])[0]
+
+print(high('man i need a taxi up to ubud'))
+    
+#+end_src
+
+#+RESULTS:
+: taxi
+
+#+begin_src python :results output
+import collections
+xo = "ooxxx"
+
+c = collections.Counter(xo)
+print(type(c))
+print(c.items())
+print(c.elements())
+nb_x = c.get('x', 0)
+nb_o = c.get('o', 0)
+print(nb_x, nb_o)
+
+#+end_src
+
+#+RESULTS:
+: <class 'collections.Counter'>
+: dict_items([('o', 2), ('x', 3)])
+: <itertools.chain object at 0x7fe97772c160>
+: 3 2
+
+#+begin_src python :results output
+import collections
+def xo(s):
+    s = s.lower()
+    c = collections.Counter(s)
+    nb_x = c.get('x',0)
+    nb_o = c.get('o',0)
+    return True if nb_x == 0 and nb_o == 0 else nb_x == nb_o
+
+print(xo('oooxx'))
+print(xo('ooxx'))
+print(xo('albert'))
+
+#+end_src
+
+#+RESULTS:
+: False
+: True
+: True
+
+
+#+begin_src python :results output
+print(121 ** 0.5)
+print(625 ** 0.5)
+
+def find_next_square(sq):
+    n = (1 + (sq ** 0.5)) ** 2
+    return int(n) if int(n) == n else -1
+
+print(find_next_square(25))
+print(find_next_square(121))
+print(find_next_square(625))
+print(find_next_square(114))
+#+end_src
+
+#+RESULTS:
+: 11.0
+: 25.0
+: 36
+: 144
+: 676
+: -1
+
+
+#+begin_src python :results output
+def is_square(n):
+    return False if n <0 else (n**0.5)**2  ==  n
+
+print(is_square(-1))
+print(is_square(0))
+print(is_square(3))
+print(is_square(4))
+print(is_square(25))
+print(is_square(26))
+
+
+#+end_src
+
+#+RESULTS:
+: False
+: True
+: False
+: True
+: True
+: False
+#+begin_src python :results output
+def bmi(weight, height):
+    calcul = lambda poids, taille: poids/(taille * taille)
+    classification = lambda x: "Underweight" if x <= 18.5 else "Normal" if x <= 25.0 else "Overweight" if x <= 30.0 else "Obese"
+    return classification(calcul(weight, height))
+
+print(bmi(50, 1.80))
+#+end_src
+
+#+RESULTS:
+: Underweight
+
+#+begin_src python :results output
+import collections
+def find_uniq(arr):
+    c = collections.Counter(arr)
+    return list(c)[-1]
+
+print(find_uniq([1,1,1,2,1,1]))
+print(find_uniq([ 0, 0, 0.55, 0, 0 ]))
+#+end_src
+
+#+RESULTS:
+: 2
+: 0.55
+
+#+begin_src python :results output
+import collections
+def find_uniq(arr):
+    c = collections.Counter(arr)
+    return c.most_common()[-1][0]
+
+print(find_uniq([1,1,1,2,1,1]))
+print(find_uniq([ 0, 0, 0.55, 0, 0 ]))
+
+#+end_src
+
+#+RESULTS:
+: 2
+: 0.55
+
+#+begin_src python :results output
+from itertools import chain, combinations
+nombre = 123
+liste = list(str(nombre))
+#nombre = list(str(123))
+#retour = [chain.from_iterable(combinations(liste, taille)) for taille in range(len(liste)+1)]
+t2 = [x for x in chain.from_iterable(combinations(liste, 3))]
+calcul = lambda liste, taille: [x for x in chain.from_iterable(combinations(liste, taille))]
+#tous = [calcul(liste, x) for x in range(1, len(liste)+1)]
+tous = [calcul(liste, x) for x in range(len(liste)+1)]
+#print(combinations(liste,2))
+# print(list(combinations(liste, 1)))
+# print(list(combinations(liste, 2)))
+# print(list(combinations(liste, 3)))
+print(tous)
+
+
+#+end_src
+
+#+RESULTS:
+: [[], ['1', '2', '3'], ['1', '2', '1', '3', '2', '3'], ['1', '2', '3']]
+
+#+begin_src python :results output
+from itertools import chain, combinations
+from functools import reduce
+import operator
+nombre = 123
+liste = list(str(nombre))
+retour0 = [list(combinations(liste, x)) for x in range(0, len(liste)+1)]
+#retour = [" ".join(x) for x in retour0]
+#retour = [reduce(operator.add, x) for x in retour0]
+for x in retour0:
+    print(x, type(x), "".join(x))
+    
+#print(retour)
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src python :results output
+import string
+abc = string.ascii_lowercase
+ponctuation = string.punctuation
+
+print(abc)
+chaine = "The quick brown fox jumps over the lazy dog"
+chaine = "".join(sorted(list(set(chaine.replace(' ','').lower()))))
+
+print(chaine)
+
+def is_pangram(s):
+    abc = string.ascii_lowercase
+    ponctuation = string.punctuation
+    chaine = "".join(sorted(list(set(s.replace(' ','').lower()))))
+    chaine = chaine.translate(str.maketrans("","", ponctuation))
+    chaine = chaine.translate(str.maketrans("","", string.digits))
+    return True if abc == chaine else False
+
+print(is_pangram("The quick brown fox jumps over the lazy dog"))
+#+end_src
+
+#+RESULTS:
+: abcdefghijklmnopqrstuvwxyz
+: abcdefghijklmnopqrstuvwxyz
+: True
+
+
+#+begin_src python :results output
+import string
+print(dir(string))
+#+end_src
+
+#+RESULTS:
+: ['Formatter', 'Template', '_ChainMap', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_re', '_sentinel_dict', '_string', 'ascii_letters', 'ascii_lowercase', 'ascii_uppercase', 'capwords', 'digits', 'hexdigits', 'octdigits', 'printable', 'punctuation', 'whitespace']
+
+
+#+begin_src python :results output
+sup9 = lambda x: sum([int(chaine) for chaine in list(str(x))])
+calcul = lambda x: 2 * x if 2*x < 9 else sup9(2*x)
+
+print(sup9(22))
+
+vingt = range(0,21)
+pairs20 = vingt[0::2]
+impairs20 = vingt[1::2]
+print(list(pairs20))
+print(list(impairs20))
+print(list(pairs20) + list(impairs20))
+
+def validate(n):
+    sup9 = lambda x: sum([int(chaine) for chaine in list(str(x))])
+    calcul = lambda x: 2 * x if 2*x < 9 else sup9(2*x)
+    chiffres = list(map(int, str(n)))
+    pairs = chiffres[0::2]
+    impairs = chiffres[1::2]
+    taille = len(chiffres)
+    #somme_ = pairs + list(map(calcul, impairs)) if len(chiffres)%2 == 0 else impairs + list(map(calcul,pairs))
+    somme_ = impairs + list(map(calcul, pairs)) if len(chiffres)%2 == 0 else pairs + list(map(calcul,impairs))
+    somme = sum(somme_)
+    return True if somme % 10 == 0 else False 
+
+print(validate(1714))
+print(validate(12345))
+print(validate(2121))
+print(validate(1230))
+
+    
+#+end_src
+
+#+RESULTS:
+: 4
+: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+: False
+: False
+: True
+: True
+
+#+begin_src python :results output
+def narcissistic(nombre):
+    liste = list(map(int, str(nombre)))
+    t = len(liste)
+    puissances = sum([x**t for x in liste])
+    return True if nombre == puissances else False
+
+                 
+#+end_src
+=pas fini=
+#+begin_src python :results output
+from itertools import combinations
+
+def find_mult_3(nombre):
+    chiffres = list(map(int, str(nombre)))
+    taille = len(chiffres)
+    liste = [list(combinations(chiffres, x)) for x in range(1,taille+1)]
+    ~liste2 = [list(combinations(chiffres, x)) for x in range(1,taille+1)]
+    #n = [list(map(list, list(x))) for x in liste]
+    n = [[*x] for x in liste]
+    #print(n)
+    for x in n:
+        print(type(x))
+    #nombres = ["".join(map(str, x)) for x in liste]
+    #print(nombres)
+
+print(find_mult_3(362))    
+#+end_src
+
+#+RESULTS:
+: <class 'list'>
+: <class 'list'>
+: <class 'list'>
+: None
+
+#+begin_src python :results output
+a = [1, 3, 4, "charlot",  5, 8]
+print(a.index("charlot"))
+
+def find_needle(haystack):
+    return f"found the needle at position {haystack.index('needle')}"
+#+end_src
+
+#+RESULTS:
+: 3
+
+
+#+begin_src python :results output
+
+def get_count(sentence):
+    return len([x for x in list(sentence.lower()) if x in ('a','e','i','o','u')])
+
+print(get_count('Albertine est partie danser'))
+    
+#+end_src
+
+#+RESULTS:
+: 10
+
+
+#+begin_src python :results output
+a = [19, 5, 42, 2, 77]
+b = sorted([x for x in a if x > 0])
+print(b[0:2])
+
+def sum_two_smallest_numbers(numbers):
+    return sum(sorted([x for x in a if x > 0])[0:2])
+
+print(sum_two_smallest_numbers([19, 5, 42, 2, 77]))
+
+#+end_src
+
+#+RESULTS:
+: [2, 5]
+: 7
+
+
+#+begin_src python :results output
+a = 645
+b = [int(x) for x in str(a)]
+print(b[::-1])
+
+
+#+end_src
+
+#+RESULTS:
+: [5, 4, 6]
+
+#+begin_src python :results output
+nombre = list(str(12345))
+taille = len(nombre)
+a = [(int(chiffre), taille-index) for index,chiffre in enumerate((nombre))]
+b = [str((int(chiffre))*(10**(taille-index-1))) for index, chiffre in enumerate((nombre))]
+print(a)
+print(b)
+print(" + ".join(b))
+
+def expanded_form(num):
+    nombre = list(str(num))
+    taille = len(nombre)
+    liste = [str((int(chiffre))*(10**(taille-index-1))) for index, chiffre in enumerate((nombre))]
+    retour = [x for x in liste if x != '0']
+    return " + ".join(retour)
+
+print(expanded_form(70304))
+#+end_src
+
+#+RESULTS:
+: [(1, 5), (2, 4), (3, 3), (4, 2), (5, 1)]
+: ['10000', '2000', '300', '40', '5']
+: 10000 + 2000 + 300 + 40 + 5
+: 70000 + 300 + 4
+
+
+#+begin_src python :results output
+import numpy as np
+a = np.array([1, 2, 3, 4])
+print(np.prod(a))
+
+def grow(arr):
+    return np.prod(arr)
+
+print(grow([1,2,3,4,5]))
+#+end_src
+
+#+RESULTS:
+: 24
+: 120
+
+
+#+begin_src python :results output
+def zero(): return 0
+def one(): return 1
+def two(): return 2
+def three(): return 3
+def four(): return 4
+def five(): return 5
+def six(): return 6
+def seven(): return 7
+def eight(): return 8
+def nine(): return 9
+
+def plus(a,b): return a + b 
+def minus(a,b): return a - b 
+def times(a,b): return a * b
+def divided_by(a,b): return a//b 
+#+end_src
+
+#+begin_src python :results output
+def filter_list(l):
+    return [x for x in l if isinstance(x, int)]
+
+print(filter_list([1, 2, 4, "44", 'a']))
+
+#+end_src
+
+#+RESULTS:
+: [1, 2, 4]
+
+
+#+begin_src python :results output
+import re
+
+def validate_pin(c):
+    #return True if re.match(r'\b\d{4}(?:\d{2})?\b', c) else False
+    #return True if re.match(r'\b\d{4}(?:\d{2})?\b', c) else False
+    #return True if re.match('/^\d{4}(?:\d{2})?$/', c) else False
+    #return True if re.match('^\d{4}(?:\d{6})$', c) else False
+    return True if str(c).isnumeric() and (len(str(c)) ==4 or   len(str(c)) == 6) else False
+
+print(validate_pin(1234))
+print(validate_pin(12345))
+print(validate_pin(123456))
+print(validate_pin(1234567))
+print(validate_pin(-1234567))
+
+#+end_src
+
+#+RESULTS:
+: True
+: False
+: True
+: False
+: False
+
+#+begin_src python :results output
+import string
+
+chaine = 'albertA'
+# print(dir(string))
+# print(string.ascii_letters)
+# print(string.ascii_lowercase)
+# print(string.ascii_uppercase)
+t1 = [x for x in list(chaine) if x in list(string.ascii_uppercase)]
+print(chaine.find(t1[0]))
+print(chaine[0:6])
+print(chaine[6:])
+
+def solution(s):
+    liste = [x for x in list(s) if x in list(string.ascii_uppercase)]
+    print(liste)
+    index = s.find(liste[0])
+    return "" if not s else f"{s[0:index]} {s[index:].lower()}"
+
+print(solution('camelCasing'))
+print(solution("boomBoomBaam"))
+#+end_src
+
+#+RESULTS:
+: 6
+: albert
+: A
+: ['C']
+: camel casing
+: ['B', 'B']
+: boom boombaam
+
+#+begin_src python :results output
+import re
+import string
+chaine = "boomBoomBaam"
+liste = [x for x in re.split(r'([A-Z]*)', chaine) if x in list(string.ascii_uppercase)]
+l2 = [chaine.findAll(x) for x in liste]
+print(liste)
+print(l2)
+#+end_src
+
+#+begin_src python :results output
+import re
+
+chaine = "boomBoomBaam"
+liste = re.findall('[a-zA-Z][^A-Z]*', chaine)
+#print(liste)
+
+def solution(chaine):
+    return "" if not s else " ".join(re.findall('[a-zA-Z][^A-Z]*', chaine))
+
+print(solution('identifier'))
+print(solution('camelCasing'))
+print(solution("boomBoomBaam"))
+
+
+#+end_src
+
+#+RESULTS:
+: identifier
+: camel Casing
+: boom Boom Baam
+
+#+begin_src python :results output
+# 1/1 1/4 1/7 1/10 1/13
+#print(list(range(1,5)))
+#a = [(y,x+3) for x,y in enumerate(range(5))]
+#print(a)
+b = list(range(1,5*3,3))
+#print(b)
+fois = 5
+c = round(sum([1/x for x in range(1,fois*3,3)]), 2)
+#print(c)
+
+def series_sum(n):
+    return format(round(sum([1/x for x in range(1,n*3,3)]), 2), '.2f')
+
+print(series_sum(1))
+print(series_sum(2))
+print(series_sum(5))
+#+end_src
+
+#+RESULTS:
+: 1.00
+: 1.25
+: 1.57
+
+
+#+begin_src python :results output
+#print(3/12)
+def quarter_of(m):
+    return 1 if m/12 < 0.251 else 2 if m/12 < 0.51 else 3 if m/12 < 0.751 else 4
+
+print(quarter_of(3))
+print(quarter_of(6))
+
+print(quarter_of(8))
+print(quarter_of(11))
+#+end_src
+
+#+RESULTS:
+: 1
+: 2
+: 3
+: 4
+
+#+begin_src python :results output
+def update_light(current):
+    couleurs = ['green','yellow','red']
+    taille = len(couleurs)
+    i = couleurs.index(current)
+    return couleurs[i+1] if i+1 < taille else couleurs[0]
+
+print(update_light('green'))
+print(update_light('yellow'))
+print(update_light('red'))
+    
+#+end_src
+
+#+RESULTS:
+: yellow
+: red
+: green
+
+#+begin_src python :results output
+#abcdefghijklmnopqrstuvwxyz
+control = 'abcdefghijklm'
+s="aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"
+t = s.translate(str.maketrans("","", control))
+#print(t)
+
+def printer_error(s):
+    control = 'abcdefghijklm'
+    taille = len(s)
+    extraction = s.translate(str.maketrans("","", control))
+    return f"{len(extraction)}/{taille}"
+
+print(printer_error("kkkwwwaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"))
+print(printer_error("kkkwwwaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyzuuuuu"))
+#+end_src
+
+#+RESULTS:
+: 6/60
+: 11/65
+
+#+begin_src python :results output
+def switch_it_up(nombre):
+    dico = {1:'One', 2:'Two', 3:'Three', 4:'Four', 5:'Five', 6:'Six', 7:'Seven', 8:'Eight', 9:'Nine', 0:'Zero'}
+    return dico.get(nombre)
+
+print(switch_it_up(4))
+print(switch_it_up(0))
+print(switch_it_up(9))
+#+end_src
+
+#+RESULTS:
+: Four
+: Zero
+: Nine
+
+#+begin_src python :results output
+def switch_it_up(n):
+    return ['Zero','One','Two','Three','Four','Five','Six','Seven','Eight','Nine'][n]
+
+print(switch_it_up(4))
+print(switch_it_up(0))
+print(switch_it_up(9))
+
+#+end_src
+
+#+RESULTS:
+: Four
+: Zero
+: Nine
+
+#+begin_src python :results output
+def descending_order(num):
+    liste = list(map(str, sorted([int(x) for x in list(str(num))])))
+    return int("".join(liste), 2)
+
+print(descending_order(3465))
+#+end_src
+
+#+RESULTS:
+: 3456
+
+
+#+begin_src python :results output
+def number(lines):
+    return [f'{x+1}: {lettre}' for x,lettre in enumerate(lines)]
+
+print(number(['a','b','c']))
+#+end_src
+
+#+RESULTS:
+: ['1: a', '2: b', '3: c']
+
+#+begin_src python :results output
+import collections
+
+def count(s):
+    return {} if not s else dict(collections.Counter(s))
+
+print(count('aba'))
+#+end_src
+
+#+RESULTS:
+: {'a': 2, 'b': 1}
+
+#+begin_src python :results output
+def open_or_senior(paires):
+    #m >=55 & h >7
+    #h: -2 -> 26
+    senior_open = lambda paire: "Senior" if paire[0]>=55 and paire[1]>7 else "Open"
+    return [senior_open(x) for x in paires]
+
+
+a = (45, 12)
+b = [45, 12]
+print(open_or_senior(a))
+print(open_or_senior(b))
+#+end_src
+
+#+begin_src python :results output
+def open_or_senior(paires):
+    senior_open = lambda paire: "Senior" if paire[0]>=55 and paire[1]>7 else "Open"
+    return [senior_open(x) for x in paires]
+
+print(open_or_senior([[18, 20], [45, 2], [61, 12], [37, 6], [21, 21], [78, 9]]))
+#+end_src
+
+#+RESULTS:
+: ['Open', 'Open', 'Senior', 'Open', 'Open', 'Senior']
+
+#+begin_src python :results output
+import collections
+
+def stray(arr):
+    c = collections.Counter(arr)
+    return sorted(list(c))[-1]
+
+print(stray([1,1,3]))
+print(stray([17, 17, 3, 17, 17, 17, 17]))
+print(stray([3, 2, 2, 2, 2]))
+#+end_src
+
+#+RESULTS:
+: 3
+: 3
+: 2
+
+
+#+begin_src python :results output
+import collections
+
+def stray(arr):
+    liste = [x for x,y in collections.Counter(arr).items() if y == 1]
+    return liste[0]
+
+print(stray([1,1,3]))
+print(stray([17, 17, 3, 17, 17, 17, 17]))
+print(stray([3, 2, 2, 2, 2]))
+
+#+end_src
+
+#+RESULTS:
+: 3
+: 3
+: 3
+
+
+#+begin_src python :results output
+def enough(cap,on, wait):
+    return 0 if (on+wait) < cap else (on + wait) - cap
+#+end_src
+
+#+begin_src python :results output
+from urllib.parse import urlparse
+
+def domain_name(lien):
+    return urlparse(lien)
+
+print(domain_name("http://google.com"))
+print(domain_name("www.xakep.ru"))
+#print("google.com".split('.')[-2:])
+#print(dir(urlparse))
+#+end_src
+
+#+RESULTS:
+: ParseResult(scheme='http', netloc='google.com', path='', params='', query='', fragment='')
+: ParseResult(scheme='', netloc='', path='www.xakep.ru', params='', query='', fragment='')
+
+#+begin_src python :results output
+from urllib.parse import urlparse
+
+def domain_name(lien):
+    resultat = urlparse(lien)
+    print(resultat)
+    return resultat.netloc.split('.')[0] if resultat.netloc
+else resultat.path.split('.')[1] if resultat.path.startswith('www')
+else resultat.netloc.split('.')[1] if resultat.scheme.startswith('http') and resultat.netloc.startswith('www')
+else resultat.path.split('.')[0]
+
+print(domain_name("http://google.com"))
+print(domain_name("www.xakep.ru"))
+print(domain_name("https://youtube.com"))
+print(domain_name("icann.org"))
+print(domain_name("http://codewars.com"))
+print(domain_name("http://www.codewars.com/kata/"))
+#+end_src
+
+#+RESULTS:
+
+#+begin_src python :results output
+from urllib.parse import urlparse
+def domain_name(lien):
+    resultat = urlparse(lien)
+    #print(resultat)
+    retour = ''
+
+    if resultat.scheme.startswith('http') and not resultat.netloc.startswith('www'):
+        retour = resultat.netloc.split('.')[0]
+    elif resultat.scheme.startswith('http') and resultat.netloc.startswith('www'):
+        retour = resultat.netloc.split('.')[1]
+    elif not resultat.scheme and not resultat.netloc and resultat.path.startswith('www'):
+        retour = resultat.path.split('.')[1]
+    elif not resultat.scheme and not resultat.netloc and resultat.path:
+        retour = resultat.path.split('.')[0]
+    else:
+        retour = resultat
+        
+    return retour
+
+print(domain_name("http://google.com"))
+print(domain_name("www.xakep.ru"))
+print(domain_name("https://youtube.com"))
+print(domain_name("icann.org"))
+print(domain_name("http://codewars.com"))
+print(domain_name("http://www.codewars.com/kata/"))
+    
+#+end_src
+
+#+RESULTS:
+: google
+: xakep
+: youtube
+: icann
+: codewars
+: codewars
+
+#+begin_src python :results output
+from itertools import chain, combinations, permutations
+
+def permutation(s):
+    calcul = lambda chaine : [ "".join(x) for x in list(permutations(chaine))]
+    #print(s)
+    #return [ "".join(x) for x in list(permutations(s))]
+    #return [calcul(x) for x in s]
+    return calcul(s)
+
+
+print(permutation('a'))
+print(permutation('ab'))
+print(permutation('abc'))
+print(permutation('aabb'))
+# print(permutation('abcd'))
+# print(permutation('abcd'))
+#+end_src
+
+#+RESULTS:
+: ['a']
+: ['ab', 'ba']
+: ['abc', 'acb', 'bac', 'bca', 'cab', 'cba']
+: ['aabb', 'aabb', 'abab', 'abba', 'abab', 'abba', 'aabb', 'aabb', 'abab', 'abba', 'abab', 'abba', 'baab', 'baba', 'baab', 'baba', 'bbaa', 'bbaa', 'baab', 'baba', 'baab', 'baba', 'bbaa', 'bbaa']
+
+
+#+begin_src python :results output
+a = ('abc')
+print(type(a[0]))
+#+end_src
+
+#+RESULTS:
+: <class 'str'>
+
+#+begin_src python :results output
+def cycle(direction,valeurs,nombre):
+    taille = len(valeurs)
+    i = valeurs.index(nombre)  if nombre in valeurs else 0
+    direction = 1 if direction > 0 else -1
+    return valeurs[i+direction] if i+direction < taille else valeurs[0]
+#+end_src
+
+#+begin_src python :results output
+def cycle(direction,valeurs,nombre):
+    taille = len(valeurs)
+    i = valeurs.index(nombre)  if nombre in valeurs else None
+    #direction = 1 if direction > 0 else -1
+    valeurs = valeurs if direction > 0 else valeurs[::-1]
+    #return valeurs[i+direction] if i+direction < taille else valeurs[0]
+    return valeurs[-1] if not i None else valeurs[i]
+#+end_src
+
+
+#+begin_src python :results output
+import collections
+
+#a = [1,2,3,4]
+a = [1,1,2]
+c = collections.Counter(a)
+print(c.items())
+tri = [x[0] for x in c.items() if x[1] % 2 == 1]
+print(tri)
+
+
+def find_it(seq):
+    c = collections.Counter(seq)
+    tri = [x[0] for x in c.items() if x[1] % 2 == 1]
+    return tri[0]
+#+end_src
+
+#+RESULTS:
+: dict_items([(1, 2), (2, 1)])
+: [2]
+
+#+begin_src python :results output
+from math import prod
+
+def persistence(n, index=0):
+
+    calcul = lambda x: prod(list(map(int, list(str(x)))))
+    taille = lambda x: len(list(map(int, list(str(x)))))
+
+    if taille(n)  == 1 :
+        return index
+    else:
+        index +=1
+        return persistence(calcul(n), index)
+
+print(persistence(39))
+print(persistence(999))
+print(persistence(4))
+
+#+end_src
+
+#+RESULTS:
+: 3
+: 4
+: 0
+
+#+begin_src python :results output
+def accum(s):
+    return "-".join([str((index+1)*lettre).capitalize() for index,lettre in enumerate(list(s))])
+
+print(accum('abcd'))
+
+    
+#+end_src
+
+#+RESULTS:
+: A-Bb-Ccc-Dddd
+
+#+begin_src python :results output
+def sort_array(liste):
+    extraction_index = lambda x: x[1]
+    pairs = [(nombre,index) for index,nombre in enumerate(liste) if nombre%2==0]
+    #impairs = sorted([(nombre,index) for index,nombre in enumerate(liste) if nombre%2==1], key=lambda x: x[1])
+    impairs = [(nombre,index) for index,nombre in enumerate(liste) if nombre%2==1]
+    liste_index_impairs = [extraction_index(x) for x in impairs]
+    tries = sorted(impairs, key=lambda x: x[1], reverse=True)
+
+    retour = liste[:]
+    dd = [(x[0][0], x[1]) for x in zip(tries,liste_index_impairs)]
+    for x in dd:
+        retour[x[1]] = x[0]
+        
+    #print(liste_index_impairs)
+    #print(tries)
+    #retour = liste[:]
+    #for x in 
+    #return [impairs, tries]
+    return [impairs, liste_index_impairs, tries, retour]
+    #return retour
+   
+
+print(sort_array([5, 8, 6, 3, 4]))
+print(sort_array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))
+#+end_src
+
+#+RESULTS:
+: [[(5, 0), (3, 3)], [0, 3], [(3, 3), (5, 0)], [3, 8, 6, 5, 4]]
+: [[(9, 0), (7, 2), (5, 4), (3, 6), (1, 8)], [0, 2, 4, 6, 8], [(1, 8), (3, 6), (5, 4), (7, 2), (9, 0)], [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]]
+
+#+begin_src python :results output
+def sort_array(liste):
+    extraction_index = lambda x: x[1]
+    pairs = [(nombre,index) for index,nombre in enumerate(liste) if nombre%2==0]
+    impairs = [(nombre,index) for index,nombre in enumerate(liste) if nombre%2==1]
+    liste_index_impairs = [extraction_index(x) for x in impairs]
+    tri_nombres_impairs = sorted(impairs,key=lambda x: x[1], reverse=True)
+    retour = liste[:]
+    tri_impairs_index = [(x[0][0], x[1]) for x in zip(tri_nombres_impairs,liste_index_impairs)]
+    for x in tri_impairs_index:
+        retour[x[1]] = x[0]
+    return retour
+
+print(sort_array([5, 8, 6, 3, 4]))
+print(sort_array([9, 8, 7, 6, 5, 4, 3, 2, 1, 0]))
+print(sort_array([11, 1, 2, 8, 3, 4, 5]))
+#+end_src
+
+#+RESULTS:
+: [3, 8, 6, 5, 4]
+: [1, 8, 3, 6, 5, 4, 7, 2, 9, 0]
+: [5, 3, 2, 8, 1, 4, 11]
+
+
+#+begin_src python :results output
+from calendar import isleap
+
+def leap_year(year):
+    return isleap(year)
+
+    
+#+end_src
+
+#+RESULTS:
+: 0 20
+
+
+#+begin_src python :results output
+a = ['Lets', 'all', 'go', 'on', 'holiday', 'somewhere', 'very', 'cold']
+b = sorted(a, key=str.casefold)
+print(b)
+#+end_src
+
+#+RESULTS:
+: ['all', 'cold', 'go', 'holiday', 'Lets', 'on', 'somewhere', 'very']
+
+
+#+begin_src python :results output
+
+def solution(string, ending):
+    return strin.endswith(ending)
+
+
+#+end_src
+
+#+begin_src python :results output
+dico = {5: 'S', 0:'O', 1:'I'}
+print(dico.get(1, 'Non'))
+chaine = 'L0Nd0n34'
+liste = dico.keys()
+a = "".join([dico.get(x) if dico.get(x) else x for x in list(chaine)])
+print(a)
+print(liste)
+print(dico.get(4, '404'))
+#+end_src
+
+#+RESULTS:
+: I
+: L0Nd0n34
+: dict_keys([5, 0, 1])
+: 404
+
+#+begin_src python :results output
+def correct(s):
+    print(s)
+    dico = {'5': 'S', '0':'O', '1':'I'}
+    return "".join([dico.get(x, x) for x in list(s)])
+
+print(correct('L0ND0N34'))
+#+end_src
+
+#+RESULTS:
+: L0ND0N34
+: LONDON34
+
+#+begin_src python :results output
+def correct(s):
+    convertisseur = lambda x: 'S' if x== 5 else 'O' if x == 0 else 'I' if x == 1 else x
+    return [convertisseur(x) for x in list(s)]
+
+print(correct('al12ber00'))
+
+#+end_src
+
+#+RESULTS:
+: ['a', 'l', '1', '2', 'b', 'e', 'r', '0', '0']
+
+
+#+begin_src python :results output
+liste = [ ("english", "Welcome")
+, ("czech", "Vitejte")
+, ("danish", "Velkomst")
+, ("dutch", "Welkom")
+, ("estonian", "Tere tulemast")
+, ("finnish", "Tervetuloa")
+, ("flemish", "Welgekomen")
+, ("french", "Bienvenue")
+, ("german", "Willkommen")
+, ("irish", "Failte")
+, ("italian", "Benvenuto")
+, ("latvian", "Gaidits")
+, ("lithuanian", "Laukiamas")
+, ("polish", "Witamy")
+, ("spanish", "Bienvenido")
+, ("swedish", "Valkommen")
+, ("welsh", "Croeso")
+]
+
+dico = dict(liste)
+
+#+end_src
+
+#+begin_src python :results output
+import string
+
+def shortcut(s):
+    aeiou = 'aeiou'
+    return s.translate(str.maketrans("","", aeiou))
+
+print(shortcut('aldebaran'))
+#+end_src
+
+#+RESULTS:
+: ldbrn
+
+#+begin_src python :results output
+def gimme(arr):
+    milieu = sorted(arr)[1]
+    return arr.index(milieu)
+
+#+end_src
+
+#+begin_src python :results output
+n1 = 4
+print(n1%5)
+n2 = 17
+print(n2%5)
+n3 = -4
+print(n3%-5)
+n4 = -5
+print(n4%-5)
+
+rtn5 = lambda x, multiple : ((x-1) / (multiple + 1)) * multiple
+print(rtn5(4,5))
+
+#+end_src
+
+#+begin_src python :results output
+from math import ceil
+def round_to_next5(n):
+    return 5 * ceil(n/5)
+
+print(round_to_next5(4))
+print(round_to_next5(3))
+print(round_to_next5(12))
+print(round_to_next5(21))
+print(round_to_next5(30))
+print(round_to_next5(-2))
+print(round_to_next5(-5))
+#+end_src
+
+#+RESULTS:
+: 5
+: 5
+: 15
+: 25
+: 30
+: 0
+: -5
+
+
+#+begin_src python :results output
+
+def to_weird_case(words):
+    upperLower = lambda index,lettre: lettre.upper() if index%2 == 0 else lettre.lower()
+    chaine_p = lambda mot: "".join([upperLower(index, lettre) for index, lettre in enumerate(list(mot))])
+    tableau = lambda liste: "".join([chaine_p(x) for x in liste])
+    return tableau(words) if isinstance(words, list) else chaine_p(words)
+
+print(to_weird_case('albertine'))
+print(to_weird_case('THIs iS a TEST'))
+
+
+#+end_src
+
+#+RESULTS:
+: AlBeRtInE
+: ThIs iS A TeSt
+
+
+#+begin_src python :results output
+print(sum(range(1,8)))
+#+end_src
+
+#+RESULTS:
+: 28
+
+#+begin_src python :results output
+d1 = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.'}
+d2 = dict((valeur, clef) for clef, valeur in d1.items())
+#print(d1.items())
+print(d1)
+print(d2)
+
+#+end_src
+
+#+RESULTS:
+: {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.'}
+: {'.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E'}
+
+#+begin_src python :results output
+abc_code = {
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
+    'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.',
+    'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+    'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-',
+    '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '.': '.-.-.-', ',': '--..--',
+    '?': '..--..', '/': '-..-.', '-': '-....-', '(': '-.--.', ')': '-.--.-', ' ': '/'
+}
+
+morse_code = dict((valeur, clef) for clef, valeur in abc_code.items())
+
+def decode_morse(m):
+    decodeur = lambda mot: [morse_cod.eget(x, ' ') for x in list(mot)]
+    return " ".join([codeur(x) for x in m.split()])
+
+def code_morse(m):
+    return " ".join([abc_code.get(x,' ') for x in list(m.upper())])
+
+print(code_morse('ABC'))
+print(code_morse('SOS'))
+    
+    
+#print(decode_morse('ABC'))
+#+end_src
+
+#+RESULTS:
+: .- -... -.-.
+: ... --- ...
+
+
+#+begin_src python :results output
+def sum_mix(arr):
+    chaines = [int(x) for x in arr if isinstance(x, str)]
+    entiers = [x for x in arr if isinstance(x, int)]
+    return chaines+entiers
+
+print(sum_mix([9, 3, '7', '3']))
+#+end_src
+
+#+RESULTS:
+: [7, 3, 9, 3]
+
+#+begin_src python :results output
+def exclamation(chaine):
+    if not chaine.endswith('!'):
+        return chaine
+    else:
+        return exclamation(chaine[:-1])
+
+print(exclamation('!hi!!'))
+#+end_src
+
+#+RESULTS:
+: !hi
+
+
+#+begin_src python :results output
+import string
+a = string.ascii_lowercase
+#un = 
+print(a)
+print(a[13:] + a[0:13])
+#+end_src
+
+#+RESULTS:
+: abcdefghijklmnopqrstuvwxyz
+: nopqrstuvwxyzabcdefghijklm
+
+#+begin_src python :results output
+import string
+
+def rot13(message):
+    minuscule = dict(zip(string.ascii_lowercase, string.ascii_lowercase[13:] + string.ascii_lowercase[0:13]))
+    majuscule = dict(zip(string.ascii_uppercase, string.ascii_uppercase[13:] + string.ascii_uppercase[0:13]))
+
+    return "".join([minuscule.get(x,'') if x.islower() else majuscule.get(x,'') if x.isupper() else x for x in message])
+
+print(rot13('dingue'))
+print(rot13('Why dit the chicken cross the road?'))
+    
+#+end_src
+
+#+RESULTS:
+: qvathr
+: Jul qvg gur puvpxra pebff gur ebnq?
+
+
+#+begin_src python :results output
+print('Argentine'.islower())
+print('ARGENTINE'.islower())
+print('argentine'.islower())
+#+end_src
+
+#+RESULTS:
+: False
+: False
+: True
+
+#+begin_src python :results output
+a = 'albert'
+print(a[0].upper()+a[1:])
+print(a[0]+a[1].upper()+a[2:])
+print(a[0]+a[1].upper()+a[2:])
+
+print([(index,x) for index,x in enumerate(a)])
+
+#+end_src
+
+#+RESULTS:
+: Albert
+: aLbert
+: aLbert
+: [(0, 'a'), (1, 'l'), (2, 'b'), (3, 'e'), (4, 'r'), (5, 't')]
+
+#+begin_src python :results output
+def wave(s):
+    changerCasse = lambda index, mot: mot[:index].capitalize() + mot[index+1:]
+    casse = lambda index, mot: mot[:index].upper() + mot[index:]
+    
+    return [casse(index, s) for index,_ in enumerate(range(len(s)))]
+
+print(wave('bonjour'))
+#+end_src
+
+#+RESULTS:
+: ['bonjour', 'Bonjour', 'BOnjour', 'BONjour', 'BONJour', 'BONJOur', 'BONJOUr']
+
+
+#+begin_src python :results output
+a = 'alberta'
+print(a[0])
+print(a.replace(a[2], a[2].upper()))
+
+def wave(s):
+    return [s.replace(s[index], x.upper(), 1) for index,x in enumerate(s)]
+
+print(wave('alberta'))
+print(wave('hello'))
+print(wave('abcde'))
+print(wave('codewars'))
+
+#+end_src
+
+#+begin_src python :results output
+def wave(s):
+    return [] if not s else [s[:index]+s[index].upper()+s[index+1:] for index,lettre in enumerate(s) if lettre != ' ']
+
+print(wave('codewars'))
+print(wave('two dogs'))
+#+end_src
+
+#+RESULTS:
+: ['Codewars', 'cOdewars', 'coDewars', 'codEwars', 'codeWars', 'codewArs', 'codewaRs', 'codewarS']
+: ['Two dogs', 'tWo dogs', 'twO dogs', 'two Dogs', 'two dOgs', 'two doGs', 'two dogS']
+
+
+#+begin_src python :results output
+def pattern(n):
+    return [] if n<1 else [f'{str(x)*x}\n' for x in range(1,n+1)]
+#+end_src
+
+#+begin_src python :results output
+def small_enough(array, limit):
+    retour = True
+
+    for x in array:
+        if x >=limit:
+            retour = False
+    return retour
+#+end_src
+
+#+begin_src python :results output
+from collections import Counter
+
+def voir(x):
+    c = Counter(x.lower())
+    #print(dir(c))
+    #return c.most_common()
+    #return list(c)
+    return c.items()
+
+print(voir('abcde'))
+#+end_src
+
+#+RESULTS:
+: dict_items([('a', 1), ('b', 1), ('c', 1), ('d', 1), ('e', 1)])
+
+#+begin_src python :results output
+from itertools import combinations
+
+def next_smaller(n):
+    liste = [int(x) for x in str(n)]
+    #c = [int("".join(x)) for x in combinations(liste, len(liste))]
+    c = [combinations(liste, len(liste)) for x in range(len(liste))]
+    return [list(x) for x in c] #max(c)
+
+print(next_smaller(34897))   
+
+#print(max([1,3,5,6]))
+#+end_src
+
+#+RESULTS:
+: [[(3, 4, 8, 9, 7)], [(3, 4, 8, 9, 7)], [(3, 4, 8, 9, 7)], [(3, 4, 8, 9, 7)], [(3, 4, 8, 9, 7)]]
+
+#+begin_src python :results output
+from itertools import permutations
+
+def next_smaller(n):
+    calcul = lambda chaine: [int("".join(x)) for x in list(permutations(str(chaine)))]
+    #liste = sorted(calcul(n))
+    liste = calcul(n)
+    tri = [x for x in liste if x < n]
+    return max(tri)
+    
+print(next_smaller(34897))
+
+#+end_src
+
+#+RESULTS:
+: 34879
+
+#+begin_src python :results output
+def replace_exclamation(s):
+    aeiou = 'aeiou'
+    return s.translate(str.maketrans(aeiou, "!!!!!"))
+
+print(replace_exclamation('him'))
+#+end_src
+
+#+RESULTS:
+: h!m
+
+
+#+begin_src python :results output
+import re
+transformation = lambda x: re.search(r"\d+", x).group(0)
+a = 'b52s'
+print(transformation(a))
+#+end_src
+
+#+begin_src python :results output
+import re
+
+def order(phrase):
+    extractionNombre = lambda chaine: (int(re.search("\d+", chaine).group(0)), chaine)
+
+    if not phrase:
+        return ""
+    else:
+        #par défaut en cas de tuple, clef du tuple est tuple[0], ici la valeur numérique
+        liste = sorted([extractionNombre(x) for x in phrase.split()])
+        retour = [x[1] for x in liste]
+        return retour
+#+end_src
+
+#+begin_src python :results output
+
+def count_smileys(arr):
+    bon_smiley = lambda x: 1 if x in [':)',':D',';-D',':~)',';~D'] else 0
+    return [] if not arr else sum([bon_smiley(x) for x in arr])
+#+end_src
+
+#+begin_src python :results output
+def likes(n):
+    print(len(n))
+    dico = {0: 'no one likes this', 1: f'{n[0]} likes this', 2: f'{n[0]} and {n[1]} like this', 3: f'{n[0]}, {n[1]} and {n[2]} like this', 4: f'{n[0]}, {n[1]} and {len(n) - 2} others like this'}
+
+    return dico.get(len(n), 4)
+    #return dico.get(0) if not n else dico.get(len(n), 4)
+    #u = dico.get(len(n), 4)
+    #return u#.format(n)
+    #return f(dico.get(len(n), 4))
+
+#print(likes(['bruno']))    
+print(likes(['al', 'bert','tao','bang','coco','baduk']))
+#print(len([]))
+#+end_src
+
+#+RESULTS:
+: 6
+: 4
+
+#+begin_src python :results output
+#n = ['al', 'bert','tao','bang','coco','baduk']
+
+def dico(envoi, liste):
+    t = len(liste)
+    retour = None
+    case 0:
+        retour = 'no one likes this'
+    case 1:
+        retour = f'{liste[0]} likes this'
+        
+n = ['al', 'bert']
+
+
+dico = {0: 'no one likes this', 1: f'{x[0]} likes this', 2: f'{x[0]} and {x[1]} like this', 3: f'{x[0]}, {x[1]} and {x[2]} like this', 4: f'{x[0]}, {x[1]} and {len(n) - 2} others like this'}
+
+print(dico.get(2))
+#print(dico.keys())
+#print(type(dico))
+
+#+end_src
+
+#+RESULTS:
+
+#+begin_src python :results output
+
+def sum_strings(x,y):
+    conversion = lambda x: 0 if x== '' else int(x)
+    # x = 0 if x == '' else int(x)
+    # y = 0 if y == '' else int(x)
+    return str(conversion(x)+conversion(y))
+
+print(sum_strings('1','2'))
+print(sum_strings('123','456'))
+
+#+end_src
+
+#+RESULTS:
+: 3
+: 579
+
+#+begin_src python :results output
+import numpy as np
+def sum_strings(x,y):
+    x = '0' if x == '' else x
+    y = '0' if y == '' else y
+    somme = np.array([x,y]).astype(int).sum()
+    return str(somme)
+
+print(sum_strings('1','2'))
+print(sum_strings('123','456'))
+
+#+end_src
+
+#+RESULTS:
+: 3
+: 579
+
+https://www.geeksforgeeks.org/sum-two-large-numbers/
+
+#+begin_src python :results output
+
+plusGrand_p = lambda x,y : [x,y] if len(x)>len(y) else [y,x]
+zero_p = lambda x: '0' if x == '' or x == ' ' or x == None else x
+ajoutChiffreString = lambda c1, c2: (ord(zero_p(c1)) - ord('0')) + (ord(zero_p(c2)) - ord('0'))
+superieur10_p = lambda x: [x-10, x] if x > 9 else [0,x]
+egaliseurString = lambda x,y: [list(x), list(('0'*(len(x) - len(y))) + y)] if len(x)>len(y) else [list(('0'*(len(y) -len(x)))+x), list(y)]
+
+a = '987398734397'
+b = '090938983473'
+a1 = a[::-1]
+b1 = b[::-1]
+#print(a1, b1)
+#print(plusGrand_p(a,b))
+#print(ord('9') - ord('0'))
+#print(type(ajoutChiffreString('4', '9')))
+# print(ajoutChiffreString(' ', '9'))
+# print(ajoutChiffreString('6', '9'))
+# print(superieur10_p(ajoutChiffreString('6', '9')))
+# print(superieur10_p(ajoutChiffreString('6', '1')))
+# print(egaliseurString('123213','66'))
+
+retenue = 0
+print(egaliseurString('123213','66'))
+
+#+end_src
+
+#+RESULTS:
+: [['1', '2', '3', '2', '1', '3'], ['0', '0', '0', '0', '6', '6']]
+
+
+#+begin_src python :results output
+a='abcdefg'
+b='0123456'
+c=b[::-1]
+t1 = [x for x in zip(a,b)]
+t2 = [x for x in zip(a[::-1],b[::-1])]
+# print(t1)
+# print(t2)
+produit = lambda x: int(x[0]) * int(x[1])
+
+t3 = [produit(x) for x in zip(b,c)]
+print(t3)
+
+retenue = 0
+# for x in zip(b,c):
+#     bc = int(c)*int(b)
+    
+#     retenue = 1 if bc > 9
+
+#+end_src
+
+#+RESULTS:
+: [0, 5, 8, 9, 8, 5, 0]
+
+#+begin_src python :results output
+a='123456789'
+b = a[::-1]
+produit = lambda x: int(x[0]) * int(x[1])
+sup10 = lambda x: 0 if x < 10 else str(x)[0]
+#print(list(zip(a,b)))
+retour1 = [produit(x) for x in zip(a,b)]
+retour2 = [(sup10(produit(x)), produit(x),x) for x in zip(a,b)]
+print(retour1)
+print(retour2)
+#+end_src
+
+#+RESULTS:
+: [9, 16, 21, 24, 25, 24, 21, 16, 9]
+: [(0, 9, ('1', '9')), ('1', 16, ('2', '8')), ('2', 21, ('3', '7')), ('2', 24, ('4', '6')), ('2', 25, ('5', '5')), ('2', 24, ('6', '4')), ('2', 21, ('7', '3')), ('1', 16, ('8', '2')), (0, 9, ('9', '1'))]
+
+
+#+begin_src python :results output
+#print(sum_strings('123','456'))
+sommation = lambda x: int(x[0]) + int(x[1])
+egaliseurString = lambda x,y: [list(x), list(('0'*(len(x) - len(y))) + y)] if len(x)>len(y) else [list(('0'*(len(y) -len(x)))+x), list(y)]
+
+a = '123'
+b = '456'
+c = list(zip(str(a), str(b)))
+d = [sommation(x)  for x in c]
+print(c)
+print(d)
+print(egaliseurString('1234','43'))
+f = [x for x in zip(egaliseurString('1234','43'))]
+print(f)
+#+end_src
+
+#+RESULTS:
+: [('1', '4'), ('2', '5'), ('3', '6')]
+: [5, 7, 9]
+: [['1', '2', '3', '4'], ['0', '0', '4', '3']]
+: [(['1', '2', '3', '4'],), (['0', '0', '4', '3'],)]
+
+
+#+begin_src python
+import re
+
+chaine = ' 33000 Bordeaux '
+motif = r'[~^0-9]'
+traitement = lambda x: re.sub(motif, "", x).strip()
+
+print(traitement('12 Rue Albert 33000 Bordeaux'))
+#+end_src
+
+
+#+begin_src python
+def chromosome_check(chromosome):
+    gars =  "Congratulations! You're going to have a son."
+    fille = "Congratulations! You're going to have a daughter."
+    return gars if 'Y' in chromosome.upper() else fille
+#+end_src
+
+
+#+begin_src python
+import string
+
+print(dir(string))
+mot = "hello I AM DONALD" 
+a = [x for x in mot if x in string.ascii_lowercase]
+print(a)
+
+print(len(a) == len(mot))
+
+
+#+end_src
+
+#+RESULTS:
+: ['Formatter', 'Template', '_ChainMap', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_re', '_sentinel_dict', '_string', 'ascii_letters', 'ascii_lowercase', 'ascii_uppercase', 'capwords', 'digits', 'hexdigits', 'octdigits', 'printable', 'punctuation', 'whitespace']
+: ['h', 'e', 'l', 'l', 'o']
+: False
+
+#+begin_src python
+a = list("0123456789")
+impair = a[1::2]
+pair = a[0::2]
+print(impair)
+print(pair)
+
+def row_weights(array):
+    pairs = array[0::2]
+    impairs = array[1::2]
+    return (sum(pairs), sum(impairs))
+
+
+#+end_src
+
+#+RESULTS:
+: ['1', '3', '5', '7', '9']
+: ['0', '2', '4', '6', '8']
+
+#+begin_src python
+
+def people_with_age_drink(age):
+    liste = ["toddy","coke","beer","whisky"]
+    retour = 0 if age < 14 else 1 if age < 18 else 2 if age < 21 else 3 #if age > 21
+    return f"drink {liste[retour]}"
+    
+print(people_with_age_drink(12))
+
+#+end_src
+
+#+RESULTS:
+: drink toddy
+
+
+#+begin_src python
+def remove_url_anchor(url):
+    return url.split('#')[0] if '#' in url else url
+
+print(remove_url_anchor("www.codewars.com#about"))
+print(remove_url_anchor("www.codewars.com/katas/?page=1#about"))
+
+
+#+end_src
+
+#+RESULTS:
+: www.codewars.com
+: www.codewars.com/katas/?page=1
+
+
+#+begin_src python
+print(int(84100 ** .5))
+
+#+end_src
+
+#+RESULTS:
+: 290
+
+
+#+begin_src python
+import itertools
+a = [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]]
+b = [x for xs in a for x in xs]
+
+listes = [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]]
+#plat = [liste for  in for liste in listes]
+#plat = [ligne for liste for liste in listes]
+plat = sorted(list(itertools.chain.from_iterable(listes)))
+
+
+print(b)
+print(plat)
+#+end_src
+
+#+RESULTS:
+: [3, 2, 1, 4, 6, 5, 9, 7, 8]
+: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+#+begin_src python
+import string
+
+def to_alternating_case(chaine):
+    chaine = [x.upper()  if x in string.ascii_lowercase else x.lower() for x in chaine]
+    return chaine
+
+    
+print(dir(string))
+#+end_src
+
+#+RESULTS:
+: ['Formatter', 'Template', '_ChainMap', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', '_re', '_sentinel_dict', '_string', 'ascii_letters', 'ascii_lowercase', 'ascii_uppercase', 'capwords', 'digits', 'hexdigits', 'octdigits', 'printable', 'punctuation', 'whitespace']
+
+
+#+begin_src python
+
+a = "aBcDfGGij"
+print(a.swapcase())
+
+#+end_src
+
+#+RESULTS:
+: AbCdFggIJ
+
+
+#+begin_src python
+dico = {
+"jabroni":"Patron Tequila",
+"school counselor":"Anything with Alcohol",
+"programmer":"Hipster Craft Beer",
+"bike gang member":"Moonshine",
+"politician":"Your tax dollars",
+"rapper":"Cristal"
+}
+
+print(dico.get('rapper'))
+
+#+end_src
+
+#+RESULTS:
+: Cristal
+
+#+begin_src python
+def blip(name="ooj"):
+    return name + name
+
+def hello(name="world"):
+    name = 'world' if not name  else name
+    return f'Hello, {name.title()}!'
+
+print(blip())
+print(hello())
+#+end_src
+
+#+RESULTS:
+: oojooj
+: Hello, World!
+
+#+begin_src python
+def reverse_words(text):
+    liste = text.split(' ')
+    retour = [x[::-1] for x in liste]
+    return " ".join(retour)
+#+end_src
+
+
+#+begin_src python
+import collections
+a = "foefet"
+b = "toffee"
+ca = collections.Counter(a.lower())
+cb = collections.Counter(b.lower())
+
+print(ca)
+print(cb)
+print(ca == cb)
+
+def is_anagram(x,y):
+    cx = collections.Counter(x.lower())
+    cy = collections.Counter(y.lower())
+    return cx == cy 
+
+#+end_src
+
+#+RESULTS:
+: Counter({'f': 2, 'e': 2, 'o': 1, 't': 1})
+: Counter({'f': 2, 'e': 2, 't': 1, 'o': 1})
+: True
+
+
+#+begin_src python
+a = list('abcdefgh')
+print(a)
+print(a[:3])
+
+#+end_src
+
+#+RESULTS:
+: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+: ['a', 'b', 'c']
+
+
+#+begin_src python
+brouille = lambda liste: liste[1::2] + liste[::2]
+debrouille = lambda liste: liste[::2] + liste[1::2]
+#print(debrouille(brouille("012345")))
+
+def encrypt(texte, n):
+    if n < 1 or n is None:
+        return texte
+    else:
+        return encrypt(brouille(texte), n-1)
+
+def decrypt(texte, n):
+    if n < 1:
+        return texte
+    else:
+        return decrypt(debrouille(texte), n-1)
+    
+# print(encrypt("This is a test!", 1))
+# print(encrypt("This is a test!", 2))
+# print(encrypt("This is a test!", 3))
+# print(encrypt("This is a test!", -1))
+# print(encrypt("This is a test!", 5))
+
+# print(encrypt("012345", 1))
+# print(encrypt("012345", 2))
+# print(encrypt("012345", 3))
+
+# print(encrypt("01234", 1))
+# print(encrypt("01234", 2))
+# print(encrypt("01234", 3))
+# print(encrypt("This kata is very interesting!", 1))
+
+print(decrypt("hsi  etTi sats!", 1))
+print(decrypt("s eT ashi tist!", 2))
+
+
+#+end_src
+
+#+RESULTS:
+: hi tist!s eT as
+: s is a test!Thi
+
+
+#+begin_src python
+a = '1450'
+print(a[-1:])
+
+#+end_src
+
+#+RESULTS:
+: 0
+
+
+#+begin_src python
+import string
+dico = {x:_+1 for _,x in enumerate(string.ascii_lowercase)}
+mot = [dico.get(x,0) for x in  'attitude']
+#print(sum(mot))
+
+def words_to_marks(s):
+    dico = {x:_+1 for _,x in enumerate(string.ascii_lowercase)}
+    return sum([dico.get(x,0) for x in s])
+
+print(words_to_marks('attitude'))
+#+end_src
+
+#+RESULTS:
+: 100
+: 100
+
+#+begin_src python
+a = 'abcdef'
+
+a1 = [x.upper() for x in a[::2]]
+a2 = [x.upper() for x in a[1::2]]
+print(a1,a2)
+a3 = "".join([x.upper()  if _%2 == 0 else x for _,x in enumerate(a)])
+a4 = a3.swapcase()
+print(a3, a4)
+
+def capitalize(s):
+    s1 = "".join([x.upper() if _%2 == 0 else x for _,x in enumerate(s)])
+    return [s1,s1.swapcase()]
+
+print(capitalize(a))
+#+end_src
+
+#+RESULTS:
+: ['A', 'C', 'E'] ['B', 'D', 'F']
+: AbCdEf aBcDeF
+: ['AbCdEf', 'aBcDeF']
+
+#+begin_src python
+def no_odds(values):
+    return [x for x in values if x%2 == 0]
+
+#+end_src
+
+#+begin_src python
+a = 'abcdef'
+print(a[-1::])
+
+#+end_src
+
+#+RESULTS:
+: f
+
+#+begin_src python
+def solution(text, ending):
+    return ending == text[-len(ending)::] #  text.endswith(ending)
+
+    #return text.endswith(text) == ending.startswith(str(text[::-1]))
+
+print(solution('samurai','ai'))
+
+#+end_src
+
+#+RESULTS:
+: True
+
+#+begin_src python
+import numpy as np
+a = [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0]
+a1,a2,a3,a4 = np.split(np.array(a), 4)
+b = np.concatenate((a4,a3,a2,a1), axis=0)
+print(type(b.tolist()))
+print(b.tolist())
+
+def data_reverse(data):
+    a1,a2,a3,a4 = np.split(np.array(data), 4)
+    retour = np.concatenate((a4,a3,a2,a1), axis = 0)
+    return retour.tolist()
+
+#+end_src
+
+#+RESULTS:
+: <class 'list'>
+: [1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1]
+
+#+begin_src python
+import collections
+
+a = [4,5,7,5,4,8]
+c = collections.Counter(a)
+d = dict(c)
+print(d)
+t = [x[0] for x in d.items() if x[1] == 1]
+print(t)
+
+def repeats(arr):
+    a = dict(collections.Counter(arr))
+    retour = [x[0] for x in d.items() if x[1] == 1]
+    return sum(retour)
+
+#+end_src
+
+#+RESULTS:
+: {4: 2, 5: 2, 7: 1, 8: 1}
+: [7, 8]
+
+
+#+begin_src python
+
+a = "abcEnglishdef"
+
+print("english" in a.lower())
+
+#+end_src
+
+#+RESULTS:
+: True
+
+#+begin_src python
+def whatday(num):
+    dico = {
+        1:"Sunday",
+        2:"Monday",
+        3:"Tuesday",
+        4:"Wednesday",
+        5:"Thursday",
+        6:"Friday",
+        7:"Saturday"
+    }
+
+    return dico.get(num, "Wrong, please enter a number between 1 and 7")
+
+#+end_src
+
+#+begin_src python
+
+a = 12
+#print(int(str(a),2))
+print(bin(a)[2:])
+
+#+end_src
+
+#+RESULTS:
+: 1100
+
+#+begin_src python
+print("".join(map(str,(sorted(set([1,3,1]))))))
+
+#+end_src
+
+#+RESULTS:
+: 13
+
+#+begin_src python
+
+def min_value(liste):
+    liste = sorted(set(liste))
+    return "".join(map(str,liste))
+
+print(min_value([1,3,1]))
+#+end_src
+
+#+RESULTS:
+: 13
+
+
+#+begin_src python
+import re
+import string
+#print(dir(string))
+
+a = '1a3abc5louis'
+#lettres = [(_+1,x) for _,x in enumerate(a) if not str(x).isdigit()]
+#print(lettres)
+#liste = re.split(r'[a-z]+', a)
+#print(liste)
+#print(a.values())
+nombres = [int(x) for x in re.split(r'[a-z]+', a) if x]
+lettres = [x for x in re.split(r'[0-9]+', a) if x]
+print(nombres)
+print(lettres)
+test = [1  if x[0] == len(x[1]) else 0 for x in zip(nombres, lettres)]
+print(sum(test))
+#+end_src
+
+#+RESULTS:
+: [1, 3, 5]
+: ['a', 'abc', 'louis']
+: 3
+
+#+begin_src python
+import re 
+extraction_nombres = lambda chaine: [int(x) for x in re.split(r'[a-z]+', chaine) if x]
+extraction_lettres = lambda chaine: [x for x in re.split(r'[0-9]+', chaine) if x]
+
+def is_a_valid_message(message):
+
+    if message and not message[0].isdigit():
+        return False
+    
+    message = '1a' if not message  else message
+    nombres = extraction_nombres(message)
+    lettres = extraction_lettres(message)
+    print(nombres)
+    print(lettres)
+    test = [1  if x[0] == len(x[1]) else 0 for x in zip(nombres, lettres)]
+    return len(nombres) == len(lettres) and sum(test) > 0 
+
+
+print(is_a_valid_message("4code13hellocodewars"))
+print(is_a_valid_message("3hey5hello2hi5"))
+print(is_a_valid_message("code4hello5"))
+#+end_src
+
+#+RESULTS:
+: [4, 13]
+: ['code', 'hellocodewars']
+: True
+: [3, 5, 2, 5]
+: ['hey', 'hello', 'hi']
+: False
+: False
+
+'18DLIBJTVNQNVVGLJLXG517FEFTWAHFQFNGJNAZZELPHKSFVZOJOLZLNTSEEFDHNLPDJNUEOOCCCLAEVURZDBXKLDJXTT17HUWOOQ20116'
+
+
+#+begin_src python
+
+def compute_closest_to_zero(liste):
+    return 0 if not liste else min(liste, key=abs)
+
+print(compute_closest_to_zero([-273]))
+print(compute_closest_to_zero([-15, -7, -9, -14, -12]))
+print(compute_closest_to_zero([-15, -15]))
+print(compute_closest_to_zero([-5, -4, -2, 12, -40, 4, 2, 18, 11, 5]))
+#+end_src
+
+#+RESULTS:
+: -273
+: -7
+: -15
+: -2
+#+begin_src python
+print(min([-5, -4, -2, 12, -40, 4, 2, 18, 11, 5], key=abs))
+
+#+end_src
+
+#+RESULTS:
+: -2
+
+
+#+begin_src python
+
+def valeur_minimale(liste):
+    tri = sorted(liste, key=abs)
+    seuil = tri[0]
+    valeurs = list(filter(lambda x: abs(x) == abs(seuil), liste))
+    return max(valeurs)
+
+def compute_closest_to_zero(ts):
+    return 0 if not ts else valeur_minimale(ts)
+
+
+print(compute_closest_to_zero([-5, -4, -2, 12, -40, 4, 2, 18, 11, 5]))
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src python
+
+a = [-5, -4, -2, 12, -40, 4, 2, 18, 11, 5]
+a2 = sorted(a, key=abs)
+valeur_seuil = a2[0]
+a3 = list(filter(lambda x : abs(x) == abs(valeur_seuil), a))
+# print(min(a, key=abs))
+# print(min(map(abs, a)))
+# print(sorted(a, key=abs))
+#print(valeur_seuil)
+print(max(a3))
+#+end_src
+
+#+RESULTS:
+: 2
+#+begin_src python :results output
+
+def bumps(chaine):
+    taille = len(chaine)
+    flat = [x for x in chaine if x == '_']
+    bump = [x for x in chaine if x == 'n']
+    # return [len(flat), len(bump)]
+    return "Woohoo!" if len(bump) <= 15 else "Car Dead"
+
+print(bumps("n"))
+print(bumps("_nnnnnnn_n__n______nn__nn_nnn"))
+#+end_src
+
+#+RESULTS:
+: Woohoo!
+: Car Dead

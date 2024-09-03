@@ -1,0 +1,302 @@
+#+TITLE: Awalé
+
+#+begin_src js :results output
+
+const reverseLetter = envoi => {
+    envoi = envoi.replace(/[^a-zA-Z]/g, '');
+    return [...envoi].reverse().join('');
+}
+
+console.log(reverseLetter('rd2d'));
+#+end_src
+
+#+RESULTS:
+: ddr
+
+#+begin_src js :results output
+
+principal = 1000.0;
+interet = 0.05;
+taxe = 0.18;
+total = principal + principal*interet - (principal*interet*taxe)
+console.log(principal, total);
+
+const nombreAnnee = (principal, objectif, interet, taxe) => {
+    let nombre = 0;
+
+    while(principal < objectif){
+	principal = principal + principal*interet - (principal*interet*taxe);
+	nombre +=1;
+    }
+    
+    return  objectif === principal ? 0 : nombre;
+};
+
+console.log(nombreAnnee(principal, 1100, 0.05, 0.18));
+
+#+end_src
+
+#+RESULTS:
+: 1000 1041
+: 3
+#+begin_src js :results output
+
+const rainAmount = (mm) => {
+    return mm >= 40 ? "Your plant has had more than enough water for today!" : `You need to give your plant ${40 - mm}mm of water`;
+}
+
+#+end_src
+
+
+#+begin_src js :results output
+const chaine = valeur => {
+
+return `1 * ${valeur} = ${valeur * 1}\n2 * ${valeur} = ${valeur * 2}\n3 * ${valeur} = ${valeur * 3}\n4 * ${valeur} = ${valeur * 4}\n5 * ${valeur} = ${valeur * 5}\n6 * ${valeur} = ${valeur * 6}\n7 * ${valeur} = ${valeur * 7}\n8 * ${valeur} = ${valeur * 8}\n9 * ${valeur} = ${valeur * 9}\n10 * ${valeur} = ${valeur * 10}`;
+}
+
+console.log(chaine(12));
+#+end_src
+
+#+RESULTS:
+#+begin_example
+1 * 12  = 12
+
+2 * 12  = 24
+
+3 * 12  = 36
+
+4 * 12  = 48
+
+5 * 12  = 60
+
+6 * 12  = 72
+
+7 * 12  = 84
+
+8 * 12  = 96
+
+9 * 12  = 108
+
+10 * 12  = 120
+#+end_example
+
+
+#+begin_src js :results output
+
+a = 'code';
+// maju = [...a].filter((x) => x  === x.match(/A-Z/g));
+// minu = [...a].filter((x) => x  === x.match(/a-z/g));
+
+maju = [...a].filter((x) => /[A-Z]/.test(x));
+minu = [...a].filter((x) => /[a-z]/.test(x));
+nombreMajuscules = maju.length ? maju.length : 0;
+nombreMajuscules = minu.length ? minu.length : 0;
+
+//console.log(maju, minu, maju.length, minu.length);
+
+const fix_string_case = chaine => {
+maju = [...chaine].filter((x) => /[A-Z]/.test(x));
+minu = [...chaine].filter((x) => /[a-z]/.test(x));
+nombreMajuscules = maju.length ? maju.length : 0;
+nombreMinuscules = minu.length ? minu.length : 0;
+return nombreMajuscules === nombreMinuscules ? chaine.toLowerCase() : nombreMajuscules > nombreMinuscules ? chaine.toUpperCase() : chaine.toLowerCase();
+};
+
+console.log(fix_string_case('code'));
+console.log(fix_string_case('CODe'));
+console.log(fix_string_case('COde'));
+console.log(fix_string_case('Code'));
+#+end_src
+
+#+RESULTS:
+: code
+: CODE
+: code
+: code
+
+
+#+begin_src js :results output
+
+const sayHello = (name, city, state) => `Hello, ${name.join(' ')}! Welcome to ${city}, ${state}!`;
+
+console.log(sayHello(['John', 'Smith'], 'Phoenix', 'Arizona'));
+
+#+end_src
+
+#+RESULTS:
+: Hello, John Smith! Welcome to Phoenix, Arizona!
+
+
+#+begin_src js :results output
+
+const busStops = (liste) => {
+    let montees = liste.map(x => x[0]).reduce((accumulateur, valeur) => accumulateur + valeur, 0);
+    let descentes = liste.map(x => x[1]).reduce((accumulateur, valeur) => accumulateur + valeur, 0);
+    return montees - descentes;
+    
+    };
+
+#+end_src
+
+
+#+begin_src js :results output
+
+// const torial = valeur => {
+//     int total = 0;
+//     if (valeur === 1){
+// 	return total;
+//     }
+
+// }
+
+function toto(valeur){
+    return valeur === 1 ? valeur : valeur * toto(valeur - 1)
+}
+
+
+console.log(toto(5));
+
+const totorial = valeur => valeur === 1 ? valeur : valeur * totorial(valeur - 1);	
+
+console.log(totorial(5));
+#+end_src
+
+#+RESULTS:
+: 120
+: 120
+
+#+begin_src js :results output
+
+function toto(valeur){
+    return (valeur != 1) ? valeur * toto(valeur - 1) : 1;
+}
+
+console.log(toto(5));
+#+end_src
+
+#+RESULTS:
+: 120
+
+
+#+begin_src js :results output
+
+a = [1, 3, 4 , 6, 10];
+console.log(Math.max(...a));
+#+end_src
+
+#+RESULTS:
+: 10
+
+#+begin_src js :results output
+a = [1, 3, 4 , 6, 10];
+// mini = a.reduce((a,b) => a < b ? a : b);
+// maxi = a.reduce((a,b) => a > b ? a : b);
+
+mini = a.reduce((x,y) => x < y ? x : y);
+maxi = a.reduce((x,y) => x > y ? x : y);
+
+//const getMini = envoi => envoi.reduce((a,b) => a < b ? a : b);
+console.log(mini, maxi);
+
+// const sumOfMinimums = envoi => {
+//     let tri = envoi.map((x) => getMini(x));
+//     return tri;
+// }
+
+//console.log(sumOfMinimums([7, 9, 8, 6, 2]));
+#+end_src
+
+#+RESULTS:
+: 1 10
+#+begin_src js :results output
+let li = [1, 3, 4 , 6, 10];
+let tt = [[7, 9, 8, 6, 2], [6, 3, 5, 4, 3], [5, 8, 7, 4, 5]];
+console.log(li.reduce((x,y) => x > y ? x : y));
+
+const getMi = envoi => envoi.reduce((x,y) => x > y ? x : y);
+let tts = tt.map(getMi).reduce((x,y) => x + y, 0);
+console.log(getMi([1, 3, 4 , 6, 10]));
+console.log(tts);
+#+end_src
+
+#+RESULTS:
+: 10
+: 10
+: 23
+#+begin_src js :results output
+//const getMi = envoi => envoi.reduce((x,y) => x > y ? x : y);
+
+const sumOfMinimums = liste => {
+    const getMini = envoi => envoi.reduce((x,y) => x < y ? x : y);
+    let valeurs = liste.map(getMini);
+    let somme = valeurs.reduce((acc, x) => acc + x, 0);
+    return somme;
+};
+
+
+console.log(sumOfMinimums([[7, 9, 8, 6, 2], [6, 3, 5, 4, 3], [5, 8, 7, 4, 5]]));
+#+end_src
+
+#+RESULTS:
+: 9e
+
+#+begin_src js :results output
+
+let a = "5123";
+
+//console.log(/^[123]/.test(a));
+
+const validateCode = code => /^[1-5]/.test(code);
+
+console.log(validateCode(4345));
+#+end_src
+
+#+RESULTS:
+: true
+
+
+#+begin_src js :results output
+
+let a = [7, 9, 8, 6, 2]
+let a2 = [...a].sort((x,y) => x - y);
+let a3 = [...a].sort((x,y) => y - x);
+console.log(a2);
+console.log(a3, a3[0]+a3[1]); 
+
+const largestPairSum = numbers => {
+let tri = [...numbers].sort((x,y) => y - x);
+    return tri[0]+tri[1];
+};
+
+console.log(largestPairSum([10,14,2,23,19]));
+#+end_src
+
+#+RESULTS:
+: [ 2, 6, 7, 8, 9 ]
+: [ 9, 8, 7, 6, 2 ] 17
+: 42
+
+#+begin_src python :results output
+import numpy as np
+#a = list(range(50,-51, -1))
+# a = np.arange(50,-51,-1)
+a = [55, 95, 62, 36, 48]
+moyenne = np.mean(a)
+somme = np.sum(a)
+#print(np.mean(a), np.sum(a))
+b = [round(moyenne - x, 2) for x in a]
+print(b)
+print(sum(a)/len(a), moyenne)
+#+end_src
+
+#+RESULTS:
+: [-4.2, 35.8, 2.8, -23.2, -11.2]
+: 59.2 59.2
+#+begin_src python :results output
+
+a = [20,10,-80,10,10,15,35]
+print(sum(a), sum(a)/len(a))
+#+end_src
+
+#+RESULTS:
+: 20 2.857142857142857
