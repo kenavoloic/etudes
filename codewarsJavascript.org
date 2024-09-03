@@ -300,3 +300,42 @@ print(sum(a), sum(a)/len(a))
 
 #+RESULTS:
 : 20 2.857142857142857
+
+#+begin_src js :results output
+
+const multiple_p = (index, valeur) => index == 0 & valeur == 0 ? true : index % valeur == 0; // | index == 0 && valeur == 0;
+
+const multipleOfIndex = array => {
+    let tri = array.filter((x,index) => multiple_p(x, index));
+    return tri;
+};
+
+console.log(multipleOfIndex([22, -6, 32, 82, 9, 25]));
+console.log(multipleOfIndex([68, -1, 1, -7, 10, 10]));
+console.log(multipleOfIndex([0,2,3,6,9]));
+#+end_src
+
+#+RESULTS:
+: [ -6, 32, 25 ]
+: [ -1, 10 ]
+: [ 0, 2, 6 ]
+
+
+#+begin_src js :results output
+
+const cockroachSpeed = v => {
+    // km/h : 1000m/3600s
+    // cm/s : 100000/3600 == 1000/36 = 500/18 = 250 / 9
+    return Math.floor(v * 250 / 9)
+}
+
+console.log(cockroachSpeed(1.08));
+console.log(cockroachSpeed(1.09));
+console.log(cockroachSpeed(0));
+
+#+end_src
+
+#+RESULTS:
+: 30
+: 30
+: 0

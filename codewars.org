@@ -3198,3 +3198,76 @@ print(bumps("_nnnnnnn_n__n______nn__nn_nnn"))
 #+RESULTS:
 : Woohoo!
 : Car Dead
+
+#+begin_src python :results output
+
+def apple(x):
+    valeur = int(x)
+    v2 = valeur ** 2
+    return "It's hotter than the sun!!" if v2 > 1000 else "Help yourself to a honeycomb Yorkie for the glovebox."
+
+print(apple(12))
+print(apple(120))
+print(apple("12"))
+print(apple("120"))
+
+#+end_src
+
+#+RESULTS:
+: Help yourself to a honeycomb Yorkie for the glovebox.
+: It's hotter than the sun!!
+: Help yourself to a honeycomb Yorkie for the glovebox.
+: It's hotter than the sun!!
+
+
+#+begin_src python :results output
+import re
+import string
+motif = r'[aeiou]'
+abc = {y:x+1 for x,y in enumerate(list(string.ascii_lowercase))}
+chaine = re.sub(motif, '',string.ascii_lowercase)
+#print(abc)
+print(chaine)
+
+#+end_src
+
+#+begin_src python :results output
+import re
+import string
+
+motif = r'[aeiou]'
+abc = {y:x+1 for x,y in enumerate(list(string.ascii_lowercase))}
+
+
+def valeur_chaine(chaine):
+    t = [abc[x] for x in chaine]
+    return sum(t)
+
+def solve(_chaine):
+    decoupes = re.split(motif, _chaine)
+    chaines = [re.sub(motif, '',x) for x in decoupes]
+    valeurs = [valeur_chaine(x) for x in chaines]
+    return max(valeurs)
+
+print(solve('albertine'))
+print(solve('cozy'))
+print(abc['y'])
+print(solve('zodiacs'))
+#+end_src
+
+#+RESULTS:
+: 38
+: 51
+: 25
+: 26
+
+#+begin_src python :results output
+
+def combine_names(nom,prenom):
+    return f"{nom} {prenom}"
+
+print(combine_names('James','Stevens'))
+#+end_src
+
+#+RESULTS:
+: James Stevens
