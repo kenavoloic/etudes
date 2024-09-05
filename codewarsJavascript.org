@@ -339,3 +339,324 @@ console.log(cockroachSpeed(0));
 : 30
 : 30
 : 0
+
+#+begin_src js :results output
+
+const isSortedAndHow = array => {
+    const _ascending = structuredClone(array).sort((a,b) => a - b);
+    const _descending = structuredClone(array).sort((a,b) => b - a) ;
+    const ascending = JSON.stringify(array) === JSON.stringify(_ascending);
+    const descending = JSON.stringify(array) === JSON.stringify(_descending);    
+    //return ascending ? true : descending ? true : false;
+    //console.log(_ascending, _descending, JSON.stringify(_ascending), JSON.stringify(_descending));
+    //let retour = ascending ? 'ascending' : descending ? 'descending' : 'no';
+    return ascending ? "yes, ascending" : descending ? "yes, descending" : 'no';
+    //return retour;
+    //return _ascending;
+
+};
+
+console.log(isSortedAndHow([1,20,3]));
+console.log(isSortedAndHow([1,5,2,4,9]));
+console.log(isSortedAndHow([31,25,22,14,9]));
+console.log(isSortedAndHow([1,2,4,9]));
+#+end_src
+
+#+RESULTS:
+: no
+: no
+: yes, descending
+: yes, ascending
+
+#+begin_src js :results output
+const evenNumbers = (array, number) => array.filter((x) => x%2 === 0).slice(-number);
+
+console.log(evenNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9], 3));
+//console.log([1, 2, 3, 4, 5, 6, 7, 8, 9][:3]);
+//a = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+//console.log(a.slice(-2));
+#+end_src
+
+#+RESULTS:
+: [ 4, 6, 8 ]
+
+#+begin_src js :results output
+
+a = "1,2,3";
+//console.log(a.split(",").slice(1,-1).join(" "));
+
+// const array = liste => {
+//     let x = liste.split(",").slice(1,-1).join(" ");
+//     return x ? x : null;
+// };
+
+const array = liste => liste.split(",").slice(1,-1).join(" ") || null;
+console.log(array("1"));
+console.log(array("1,2,3,4,5,6"));
+#+end_src
+
+#+RESULTS:
+: null
+: 2 3 4 5
+
+
+#+begin_src js :results output
+const arithmetic = (a,b, operator) => {
+
+    let retour = 0;
+
+    switch(operator){
+    case 'add':
+	retour = a + b;
+	break;
+    case 'subtract':
+	retour = a - b;
+	break;
+    case 'multiply':
+	retour = a * b;
+	break;
+    case 'divide':
+	retour = a / b;
+	break;
+    }
+
+    return retour;
+}
+
+console.log(arithmetic(13,15,'multiply'));
+console.log(arithmetic(8,2,'subtract'));
+#+end_src
+
+#+RESULTS:
+: 195
+: 6
+
+#+begin_src js :results output
+
+const arithmetic = (a, b, operator) => ({
+  'add'     : a + b,
+  'subtract': a - b,
+  'multiply': a * b,
+  'divide'  : a / b
+}[operator]);
+
+console.log(arithmetic(13,15,'multiply'));
+console.log(arithmetic(8,2,'subtract'));
+
+#+end_src
+
+#+RESULTS:
+: 195
+: 6
+
+
+#+begin_src js :results output
+
+function arithmetic(a, b, operator){
+  return ops[operator](a, b);
+}
+
+const ops = {
+  "add"      : (a, b) => a + b,
+  "subtract" : (a, b) => a - b,
+  "multiply" : (a, b) => a * b,
+  "divide"   : (a, b) => a / b
+}
+
+console.log(arithmetic(13,15,'multiply'));
+console.log(arithmetic(8,2,'subtract'));
+
+
+#+end_src
+
+#+RESULTS:
+: 195
+: 6
+
+#+begin_src js :results output
+chaine = 'abcdefgh';
+liste = [...chaine]
+deux = liste[1]
+dernier = liste[liste.length - 1];
+console.log('a'.codePointAt(0));
+console.log(chaine[1], chaine[chaine.length - 1]);
+console.log(deux, dernier);
+#+end_src
+ 
+#+RESULTS:
+: 97
+: b h
+: b h
+
+#+begin_src js :results output
+const secret = chaine => {
+    //let chaine = [..._chaine];
+    //console.log(chaine);
+    let tete = chaine[0].codePointAt(0);
+    let deux = chaine[1] || '';
+    let dernier = chaine.length > 1 ? chaine[chaine.length - 1] : '';
+    //let reste = chaine.length > 1 ? chaine.slice(2, chaine.length - 1) : '';
+    //let reste = chaine.length === 2 ? chaine[1] : chaine.length > 2 ? chaine.slice(2, chaine.length - 1) : '';
+    let reste = chaine.length === 2 ? chaine[1] : chaine.slice(2,chaine.length -1);
+    //console.log(chaine, tete, deux, dernier);
+    console.log(chaine, tete, dernier, reste, deux);
+    // chaine[1] = dernier;
+    // dernier = deux;
+    // let retour = [tete, chaine.slice(1)]
+    //return retour.join('');
+    return [tete,dernier,reste, deux].join('');
+};
+
+const encryptThis = text => {
+let mots = text.split(' ').map(secret);
+    return mots.join(' ');
+};
+
+console.log(encryptThis("A wise old owl lived in an oak"));
+#+end_src
+
+#+RESULTS:
+: A 65   
+: wise 119 e s i
+: old 111 d  l
+: owl 111 l  w
+: lived 108 d ve i
+: in 105 n n n
+: an 97 n n n
+: oak 111 k  a
+: 65 119esi 111dl 111lw 108dvei 105nnn 97nnn 111ka
+
+
+#+begin_src js :results output
+
+//let a = 'albertine';
+//let a = 'un';
+//console.log(a[0], a[a.length - 1]);
+
+const secret = chaine => {
+    let retour = null;
+    let taille = chaine.length;
+    let tete = chaine[0].codePointAt(0);
+
+    switch(taille){
+    case 1:
+	//retour = chaine[0].codePointAt(0);
+	//let tete = chaine[0].codePointAt(0);
+	retour = tete;
+	break;
+
+    case 2:
+	//retour = [chaine[0].codePointAt(0), chaine[1]].join('');
+	//let tete = chaine[0].codePointAt(0);
+	retour = [tete, chaine[1]].join('');
+	break;
+
+    default:
+	//let taille = chaine.length;
+	//let tete = chaine[0].codePointAt(0);
+	let dernier = chaine[taille - 1];
+	let deuxieme = chaine[1];
+	let reste = chaine.slice(2, taille -1);
+	//console.log(chaine, dernier, reste, deuxieme);
+	//retour = [chaine[0].codePointAt(0), chaine[chaine.length-1], chaine.slice(1,chaine.length-1), chaine[1]].join('');
+	retour = [tete, dernier, reste, deuxieme].join('');
+	break;
+    }
+    return retour;
+};
+
+
+const encryptThis = text => {
+let mots = text.split(' ').map(secret);
+    return mots.join(' ');
+};
+
+
+console.log(secret('A'));
+console.log(secret('Ab'));
+console.log(secret('About'));
+console.log(secret('in'));
+console.log(secret('an'));
+console.log(secret('oak'));
+
+console.log(encryptThis("A wise old owl lived in an oak"));
+#+end_src
+
+#+RESULTS:
+: 65
+: 65b
+: 65toub
+: 105n
+: 97n
+: 111ka
+: 65 119esi 111dl 111lw 108dvei 105n 97n 111ka
+
+#+begin_src js :results output
+const encodeur = chaine => {
+    let retour = null;
+    let taille = chaine.length;
+    let tete = chaine[0].codePointAt(0);
+
+    switch(taille){
+    case 1:
+	retour = tete;
+	break;
+
+    case 2:
+	retour = [tete, chaine[1]].join('');
+	break;
+
+    default:
+	let dernier = chaine[taille - 1];
+	let deuxieme = chaine[1];
+	let reste = chaine.slice(2, taille -1);
+	retour = [tete, dernier, reste, deuxieme].join('');
+	break;
+    }
+    return retour;
+};
+
+
+const encryptThis = text => {
+let mots = text.split(' ').map(encodeur);
+    return mots.join(' ');
+};
+
+console.log(encryptThis("A wise old owl lived in an oak"));
+#+end_src
+
+#+RESULTS:
+: 65 119esi 111dl 111lw 108dvei 105n 97n 111ka
+#+begin_src js :results output
+
+let a = [1,2,3,4,5].reduce((accu, valeur) => accu + valeur, 0);
+console.log(a);
+#+end_src
+
+#+RESULTS:
+: 15
+#+begin_src js :results output
+
+const digitalRoot = n => {
+    let somme = [...String(n)].reduce((accu, valeur) => accu + valeur, 0);
+    return String(somme).length === 1 ? somme : digitalRoot(somme);
+};
+
+console.log(digitalRoot(16));
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src js :results output
+
+const digitalRoot = n => {
+    let somme = [...String(n)].map(x => parseInt(x, 10)).reduce((accu, valeur) => accu + valeur, 0);
+    return String(somme).length === 1 ? somme : digitalRoot(somme)
+};
+
+console.log(digitalRoot(16));
+#+end_src
+
+#+RESULTS:
+: 7
