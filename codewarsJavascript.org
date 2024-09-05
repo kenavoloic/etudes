@@ -752,3 +752,47 @@ console.log(add('63829983432984289347293874', '90938498237058927340892374089'), 
 : 1110 1110
 : 91002328220491911630239667963 91002328220491911630239667963
 
+
+#+begin_src js :results output
+
+a = 'a a b b b c d d e e f';
+let nombre = a.split('').filter(x => x != ' ').reduce((accu, valeur) =>  accu.has(valeur) ?
+				accu.set(valeur, accu.get(valeur) + 1) :
+				accu.set(valeur, 1), new Map());
+//let bilan = [... new Set(nombre.keys())];
+//let bilan = Object.keys(nombre.sort().reduce((a,b) => (a[k] = map[a], b), {});
+//let bilan = Object.keys(nombre).sort((a,b) => a - b);
+//console.log([...nombre.values()]);
+//console.log(bilan);
+//console.log([...nombre.entries()]);
+let tri = Array.from(nombre).sort((a,b) => b[1] - a[1]);
+console.log(tri.slice(0,3));
+#+end_src
+
+#+RESULTS:
+: [ [ 'b', 3 ], [ 'a', 2 ], [ 'd', 2 ] ]
+
+#+begin_src js :results output
+
+const topThreeWords = text => {
+
+    //let tri = nettoyage.split(' ').filter(x => x != ' ').map(x => x.toLowerCase()); //suppression des espaces
+    let nettoyage = text.replace(/[^a-zA-Z' ]/g, '');
+    let tri = nettoyage.split(' ').filter(x => x != '').map(x => x.toLowerCase()); //suppression des espaces
+    let occurences = tri.reduce((accu, mot) => accu.has(mot) ? accu.set(mot, accu.get(mot) + 1) : accu.set(mot, 1), new Map());
+    let classement = Array.from(occurences).sort((a,b) => b[1] - a[1]).map(x => x[0]).filter(x => /[a-zA-Z]/.test(x));
+    return classement[0] ? classement.slice(0,3) : [];
+    //console.log(classement);
+    //return classement.map(x => x[0]);
+};
+
+//console.log(topThreeWords('a a b b b c d d e e f'));
+//console.log(topThreeWords("a a a  b  c c  d d d d  e e et0  e e"));
+//console.log(topThreeWords("e e e e DDD ddd DdD: ddd d aa aA Aa, bb cc cC e e e"));//, ['e','ddd','aa']));
+console.log(topThreeWords("  , e   .. ", ["e"]));
+console.log(topThreeWords("  '  ", []));
+#+end_src
+
+#+RESULTS:
+: [ 'e' ]
+: []
