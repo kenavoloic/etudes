@@ -660,3 +660,95 @@ console.log(digitalRoot(16));
 
 #+RESULTS:
 : 7
+
+#+begin_src js :results output
+
+const add = (_a,_b) => {
+    let ta = _a.length;
+    let tb = _b.length;
+    let a = _a.padStart(Math.max(ta,tb) + 1,'0').split('').reverse().join('');
+    let b = _b.padStart(Math.max(ta,tb) + 1,'0').split('').reverse().join('');
+    
+    //console.log(ta,tb, Math.max(ta,tb));
+    console.log(_a, a);
+    console.log(_b, b);
+    console.log(a);
+    console.log(b);
+
+    let retenue = 0;
+    
+    let chaine = [...a].reduce((acc, valeur, index) => {
+	let somme = parseInt(a[index],10) + parseInt(b[index],10) + retenue;
+	retenue = somme > 9 ? 1 : 0;
+	somme = retenue === 0 ? somme : somme - 10;
+	acc.push(String(somme));
+	return acc;
+    }, []);
+    
+    console.log(chaine, parseInt(chaine.reverse().join(''), 10));
+};
+
+
+
+
+//console.log(add('63829983432984289347293874', '90938498237058927340892374089'));
+console.log(add('123','45678'));
+
+#+end_src
+
+#+RESULTS:
+: 123 321000
+: 45678 876540
+: 321000
+: 876540
+: [ '0', '4', '5', '8', '0', '1' ] 45801
+: undefined
+
+#+begin_src js :results output
+
+console.log(123 + 45678);
+#+end_src
+
+#+RESULTS:
+: 45801
+
+#+begin_src js :results output
+
+const add = (_a,_b) => {
+    let ta = _a.length;
+    let tb = _b.length;
+    //Pour avoir deux chaînes de même longueur
+    //Les chaînes sont inversées, elles seront traversées de gauche à droite
+    let a = _a.padStart(Math.max(ta,tb) + 1,'0').split('').reverse().join('');
+    let b = _b.padStart(Math.max(ta,tb) + 1,'0').split('').reverse().join('');
+
+    //retenue de chaque addition
+    let retenue = 0;
+    
+    let chaine = [...a].reduce((acc, valeur, index) => {
+	let somme = parseInt(a[index],10) + parseInt(b[index],10) + retenue;
+	retenue = somme > 9 ? 1 : 0;
+	somme = retenue === 0 ? somme : somme - 10;
+	acc.push(somme);
+	return acc;
+    }, []);
+
+    //console.log(chaine);
+    // L'addition des deux chaînes est finalement  retournée puis convertie en entier
+    retour = chaine.reverse().join('');
+    return retour.startsWith('0') ? retour.slice(1) : retour;
+    //return retour;
+    //return parseInt(chaine.reverse().join(''), 10);
+};
+
+console.log(add("101", "100"), "201");
+console.log(add("888", "222"), "1110");
+console.log(add('63829983432984289347293874', '90938498237058927340892374089'), "91002328220491911630239667963");
+  
+#+end_src
+
+#+RESULTS:
+: 201 201
+: 1110 1110
+: 91002328220491911630239667963 91002328220491911630239667963
+
