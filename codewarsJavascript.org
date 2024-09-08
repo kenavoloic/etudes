@@ -796,3 +796,559 @@ console.log(topThreeWords("  '  ", []));
 #+RESULTS:
 : [ 'e' ]
 : []
+
+#+begin_example
+| 1 | 2 | 3 |
+| 4 | 5 | 6 |
+| 7 | 8 | 9 |
+#+end_example
+
+#+begin_example
+|  1 |  2 |  3 |  4 |  5 |
+|  6 |  7 |  8 |  9 | 10 |
+| 11 | 12 | 13 | 14 | 15 |
+| 16 | 17 | 18 | 19 | 20 |
+| 21 | 22 | 23 | 24 | 25 |
+#+end_example
+#+begin_src js :results output
+
+const lectureHaut = (tableau,ligne, debut, fin) => tableau[ligne].slice(debut,fin).map(x => x);
+const lectureDroite = (tableau, index_ligne_debut, index_ligne_fin, colonne) => tableau.slice(index_ligne_debut, index_ligne_fin).map(x => x[colonne]);
+
+const lectureBas = (tableau, ligne, debut, fin) => tableau[ligne].slice(fin,debut).reverse().map(x => x);
+const lectureGauche = (tableau, index_ligne_debut, index_ligne_fin, colonne) => tableau.slice(index_ligne_debut,index_ligne_fin).reverse().map(x => x[colonne]);
+
+
+const lectureTour = (tableaux, haut, haut_debut, haut_fin, bas, bas_debut, bas_fin, droite, gauche) => {
+    let tour1 = [...lectureHaut(tableaux, haut, haut_debut, haut_fin), ...lectureDroite(tableaux, haut+1, bas, droite), ...lectureBas(tableaux, bas, bas_debut, bas_fin), ...lectureGauche(tableaux, haut+1, bas, gauche)];
+    return tour1;
+
+};
+
+const escargot = tableaux => {
+    let lignes = tableaux.length;
+    let colonnes = tableaux[0].length;
+    let nombre = lignes * colonnes;
+    let index_colonnes = 0;
+    let index_lignes = 0;
+    let lecture = 0;
+    //let tour1 = [...lignes[1]]
+    //console.log(lignes, colonnes, nombre, lecture);
+    // console.log(lectureHaut(tableaux, 0));
+    // console.log(lectureDroite(tableaux, 1, 2, 2));
+    // console.log(lectureBas(tableaux, 2));
+    // console.log(lectureGauche(tableaux, 1, 2, 0));
+    // let tour1 = [...lectureHaut(tableaux, 0), ...lectureDroite(tableaux, 1, 2, 2), ...lectureBas(tableaux, 2), ...lectureGauche(tableaux, 1, 2, 0)];
+    // console.log(tour1, tour1.length, nombre);
+    let haut = 0;
+    let haut_debut = 0;
+    let haut_fin = tableaux[haut].length;
+    let bas = 2; //lignes; //tableaux.length -1; //2;
+    let bas_fin = 0;
+    let bas_debut = tableaux[haut].length -1;
+    let droite = tableaux[haut].length  - 1;
+    let gauche = index_colonnes; //tableaux[index_colonnes];
+    //const tour1 = lectureTour(tableaux, haut, haut_debut, haut_fin, bas, bas_debut, bas_fin, droite, gauche);
+    //const tour2 = lectureTour(tableaux, haut+1, haut_debut + 1 , haut_fin - 1, bas-1, bas_debut -1 , bas_fin + 1, droite-1, gauche+1);
+
+    const tour1 = lectureTour(tableaux, haut, haut_debut, haut_fin, bas, bas_debut, bas_fin, droite, gauche);
+    //const tour2 = lectureTour(tableaux, haut+1, haut_debut + 1 , haut_fin - 1, bas-1, bas_debut -1 , bas_fin + 1, droite-1, gauche+1);
+
+    //console.log(tour1, tour1.length, nombre);
+    //console.log(tour2, tour2.length, nombre);
+    console.log(tour1);
+    //console.log(tour2);
+};
+
+
+//escargot([[1,2,3],[4,5,6],[7,8,9]]);
+escargot([[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [16, 17, 18, 19, 20], [21, 22, 23, 24, 25]]);
+#+end_src
+
+#+RESULTS:
+: [
+:    1,  2,  3,  4,  5,
+:   10, 14, 13, 12, 11,
+:    6
+: ]
+
+
+#+begin_example
+|  1 |  2 |  3 |  4 |
+|  5 |  6 |  7 |  8 |
+|  9 | 10 | 11 | 12 |
+| 13 | 14 | 15 | 16 |
+#+end_example
+
+#+name: cinq
+#+begin_src python :results output
+import numpy as np
+a = np.arange(25).reshape(5,5)
+print(a)
+
+#+end_src
+
+#+begin_src js :results output
+
+const lectureHaut = (tableau, debut, fin) => [...tableau.slice(debut, fin)];
+const lectureBas = (tableau, debut, fin) => [...tableau.slice(debut,fin).reverse()];
+//const lectureDroite = (tableaux, ligne_debut, ligne_fin, colonne) => tableaux.s
+
+
+const lectureTour = (liste, haut, droite, bas, gauche) => {
+};
+
+
+const escargot = tableaux => {
+    //console.log(tableaux);
+    const tour1 = lectureTour(tableaux, haut, droite, bas, gauche);
+};
+
+escargot([[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]]);
+
+#+end_src
+
+#+RESULTS:
+: [
+:   [ 1, 2, 3, 4, 5 ],
+:   [ 6, 7, 8, 9, 10 ],
+:   [ 11, 12, 13, 14, 15 ],
+:   [ 16, 17, 18, 19, 20 ],
+:   [ 21, 22, 23, 24, 25 ]
+: ]
+
+
+#+begin_src js :results output
+const a = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+//haut
+//console.log(a[1].map(x => x));
+//droite
+//console.log(a.map(x => x[x.length -1]));
+// console.log(a.map(x => x[x.length -2]));
+//console.log(a.slice(1,4).map(x => x[x.length -2]));
+//bas
+//console.log(a[a.length - 1].map(x => x).reverse());
+//console.log(a[a.length - 1].slice(1,4).map(x => x).reverse());
+//gauche
+//console.log(a.map(x => x[0]));
+//console.log(a.slice(1,4).reverse().map(x => x[0]));
+#+end_src
+
+#+RESULTS:
+: [ 1, 6, 11, 16, 21 ]
+: [ 16, 11, 6 ]
+#+begin_src js :results output
+const a = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+const nombre_total = a.map(x => x.length).reduce((accu, valeur) => accu + valeur, 0);//.sum();
+let index_haut = 0;
+let index_haut_debut = 0;
+let index_haut_fin = a[0].length;
+let index_droite = a[0].length - 1;
+let index_droite_debut = 1;
+let index_droite_fin = a.length - 1;
+let index_bas = a.length - 1;
+let index_bas_debut = 0;
+let index_bas_fin = a[0].length;
+let index_gauche = 0;
+let index_gauche_debut = 1;
+let index_gauche_fin = a.length - 1;
+
+//console.log(index_haut,index_droite);
+//console.log(a[index_haut]);
+//Tour 1
+//haut
+console.log(a[index_haut].slice(index_haut_debut, index_haut_fin).map(x => x));
+//droite
+console.log(a.slice(index_droite_debut,index_droite_fin).map(x => x[index_droite]));
+//bas
+console.log(a[index_bas].slice(index_bas_debut,index_bas_fin).reverse());
+//gauche
+console.log(a.slice(index_gauche_debut,index_gauche_fin).map(x => x[index_gauche]).reverse());
+
+//Tour 2
+//haut
+console.log(a[index_haut+1].slice(index_haut_debut+1, index_haut_fin-1).map(x => x));
+//droite
+console.log(a.slice(index_droite_debut+1,index_droite_fin-1).map(x => x[index_droite-1]));
+// //bas
+console.log(a[index_bas-1].slice(index_bas_debut+1,index_bas_fin-1).reverse());
+// //gauche
+console.log(a.slice(index_gauche_debut+1,index_gauche_fin-1).map(x => x[index_gauche+1]).reverse());
+
+//Tour3 
+//haut
+console.log(a[index_haut+2].slice(index_haut_debut+2, index_haut_fin-2).map(x => x));
+
+//droite
+console.log(a.slice(index_droite_debut+2,index_droite_fin-2).map(x => x[index_droite-2]));
+// //bas
+console.log(a[index_bas-2].slice(index_bas_debut+2,index_bas_fin-2).reverse());
+// //gauche
+console.log(a.slice(index_gauche_debut+2,index_gauche_fin-2).map(x => x[index_gauche+2]).reverse());
+
+console.log(nombre_total);
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[ 1, 2, 3, 4, 5 ]
+[ 10, 15, 20 ]
+[ 25, 24, 23, 22, 21 ]
+[ 16, 11, 6 ]
+[ 7, 8, 9 ]
+[ 14 ]
+[ 19, 18, 17 ]
+[ 12 ]
+[ 13 ]
+[]
+[ 13 ]
+[]
+25
+#+end_example
+
+#+begin_src js :results output
+
+const lectureHaut = (tableau, index_haut, index_haut_debut, index_haut_fin, tour=0) =>  tableau[index_haut+tour].slice(index_haut_debut+tour, index_haut_fin-tour).map(x => x);
+
+const lectureDroite = (tableau, index_droite, index_droite_debut, index_droite_fin, tour=0) => tableau.slice(index_droite_debut + tour,index_droite_fin - tour).map(x => x[index_droite - tour]);
+const lectureBas = (tableau, index_bas, index_bas_debut, index_bas_fin, tour=0) => tableau[index_bas - tour].slice(index_bas_debut + tour,index_bas_fin - tour).reverse();
+const lectureGauche = (tableau, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => tableau.slice(index_gauche_debut + tour,index_gauche_fin - tour).map(x => x[index_gauche + tour]).reverse();
+
+const lectureTour = (a,index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => {
+
+    let retour = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, tour),
+		  ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, tour),
+		  ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, tour),
+		  ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, tour)];
+
+    return retour;
+};
+
+const escargot = tableaux => {
+    //const a = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+    const a = tableaux;
+    const nombre_total = a.map(x => x.length).reduce((accu, valeur) => accu + valeur, 0);
+    let index_haut = 0;
+    let index_haut_debut = 0;
+    let index_haut_fin = a[0].length;
+    let index_droite = a[0].length - 1;
+    let index_droite_debut = 1;
+    let index_droite_fin = a.length - 1;
+    let index_bas = a.length - 1;
+    let index_bas_debut = 0;
+    let index_bas_fin = a[0].length;
+    let index_gauche = 0;
+    let index_gauche_debut = 1;
+    let index_gauche_fin = a.length - 1;
+
+    // const tour1 = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, 0),
+    // 		   ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, 0),
+    // 		   ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, 0),
+    // 		   ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, 0)];
+
+    // const tour2 = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, 1),
+    // 		   ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, 1),
+    // 		   ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, 1),
+    // 		   ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, 1)];
+
+    // const tour3 = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, 2),
+    // 		   ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, 2),
+    // 		   ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, 2),
+    // 		   ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, 2)];
+
+    const tour1 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 0);
+
+    const tour2 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 1);
+
+    const tour3 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 2);
+
+    const retour = [...tour1, ...tour2, ...tour3].filter(x => x != undefined).slice(0,nombre_total);
+
+    //console.log(tour1, tour1.length);
+    console.log(retour, retour.length);
+    //console.log(tour2);
+};
+
+const liste = [
+    [1,2,3,4,5],
+    [6,7,8,9,10],
+    [11,12,13,14,15],
+    [16,17,18,19,20],
+    [21,22,23,24,25]];
+
+//escargot(liste);
+
+escargot([[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 35, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]]);
+
+//[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36])
+
+escargot([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+
+//[1, 2, 3, 6, 9, 8, 7, 4, 5]);
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[
+   1,  2,  3,  4,  5,  6,  7,  8,  9,
+  10, 11, 12, 13, 14, 15, 16, 17, 18,
+  19, 20, 21, 22, 23, 24, 25, 26, 27,
+  28, 29, 30, 31, 32, 33, 34, 35, 36
+] 36
+[
+  1, 2, 3, 6, 9,
+  8, 7, 4, 5
+] 9
+#+end_example
+
+#+begin_src js :results output
+console.log([[]].length);
+
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src js :results output
+
+const lectureHaut = (tableau, index_haut, index_haut_debut, index_haut_fin, tour=0) =>  tableau[index_haut+tour].slice(index_haut_debut+tour, index_haut_fin-tour).map(x => x);
+
+const lectureDroite = (tableau, index_droite, index_droite_debut, index_droite_fin, tour=0) => tableau.slice(index_droite_debut + tour,index_droite_fin - tour).map(x => x[index_droite - tour]);
+const lectureBas = (tableau, index_bas, index_bas_debut, index_bas_fin, tour=0) => tableau[index_bas - tour].slice(index_bas_debut + tour,index_bas_fin - tour).reverse();
+const lectureGauche = (tableau, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => tableau.slice(index_gauche_debut + tour,index_gauche_fin - tour).map(x => x[index_gauche + tour]).reverse();
+
+const lectureTour = (a,index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => {
+
+    let retour = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, tour),
+		  ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, tour),
+		  ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, tour),
+		  ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, tour)];
+
+    return retour;
+};
+
+const escargot = tableaux => {
+    //const a = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+    const a = tableaux;
+    const nombre_total = a.map(x => x.length).reduce((accu, valeur) => accu + valeur, 0);
+    const taille = a[0].length;
+    let retour = null;
+    let index_haut = 0;
+    let index_haut_debut = 0;
+    let index_haut_fin = a[0].length;
+    let index_droite = a[0].length - 1;
+    let index_droite_debut = 1;
+    let index_droite_fin = a.length - 1;
+    let index_bas = a.length - 1;
+    let index_bas_debut = 0;
+    let index_bas_fin = a[0].length;
+    let index_gauche = 0;
+    let index_gauche_debut = 1;
+    let index_gauche_fin = a.length - 1;
+
+    switch(taille){
+    case 0:
+	retour = [];
+	break;
+    case 1:
+	retour = a[0];
+	break;
+    default:
+	let tour1 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 0);
+
+	let tour2 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 1);
+
+	let tour3 = lectureTour(a, index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 2);
+
+	retour = [...tour1, ...tour2, ...tour3].filter(x => x != undefined).slice(0,nombre_total);
+	break;
+    }
+    
+    //console.log(retour, retour.length);
+    return retour;
+
+};
+
+const liste = [
+    [1,2,3,4,5],
+    [6,7,8,9,10],
+    [11,12,13,14,15],
+    [16,17,18,19,20],
+    [21,22,23,24,25]];
+
+//escargot(liste);
+
+console.log(escargot([[]]));
+console.log(escargot([[1]]));
+console.log(escargot([[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 35, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]]));
+
+console.log(escargot([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));
+
+#+end_src
+
+
+#+begin_src js :results output
+
+// Lecture en 4 parties : haut, droite, bas, et gauche
+// A chaque nouvelle itération, la lecture s'effectue sur un tableau réduit par rapport à la lecture précédente
+
+const lectureHaut = (tableau, index_haut, index_haut_debut, index_haut_fin, tour=0) =>  tableau[index_haut+tour].slice(index_haut_debut+tour, index_haut_fin-tour).map(x => x);
+
+const lectureDroite = (tableau, index_droite, index_droite_debut, index_droite_fin, tour=0) => tableau.slice(index_droite_debut + tour,index_droite_fin - tour).map(x => x[index_droite - tour]);
+const lectureBas = (tableau, index_bas, index_bas_debut, index_bas_fin, tour=0) => tableau[index_bas - tour].slice(index_bas_debut + tour,index_bas_fin - tour).reverse();
+const lectureGauche = (tableau, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => tableau.slice(index_gauche_debut + tour,index_gauche_fin - tour).map(x => x[index_gauche + tour]).reverse();
+
+const lectureTour = (a,index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => {
+
+    let retour = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, tour),
+		  ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, tour),
+		  ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, tour),
+		  ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, tour)];
+
+    return retour;
+};
+
+const escargot = tableaux => {
+    
+    //const tableaux = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+
+    const nombre_total = tableaux.map(x => x.length).reduce((accu, valeur) => accu + valeur, 0);
+    const taille = tableaux[0].length;
+    let retour = null;
+    let index_haut = 0;
+    let index_haut_debut = 0;
+    let index_haut_fin = tableaux[0].length;
+    let index_droite = tableaux[0].length - 1;
+    let index_droite_debut = 1;
+    let index_droite_fin = tableaux.length - 1;
+    let index_bas = tableaux.length - 1;
+    let index_bas_debut = 0;
+    let index_bas_fin = tableaux[0].length;
+    let index_gauche = 0;
+    let index_gauche_debut = 1;
+    let index_gauche_fin = tableaux.length - 1;
+
+    switch(taille){
+    case 0:
+	retour = [];
+	break;
+    case 1:
+	retour = tableaux[0];
+	break;
+    default:
+	let iterations = Array.from({length:Math.ceil(tableaux[0].length*3/5)}, (_, i) => i);
+	
+	// let tour1 = lectureTour(tableaux,  index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 0);
+
+	// let tour2 = lectureTour(tableaux,  index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 1);
+
+	// let tour3 = lectureTour(tableaux,  index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, 2);
+
+	let tours = iterations.map(iteration => lectureTour(tableaux,  index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, iteration));
+
+	//retour = tours;
+
+	retour = tours.reduce((accu, valeur) => [...accu, ...valeur], []).filter(x => x != undefined).slice(0,nombre_total);
+
+	//retour = [...tour1, ...tour2, ...tour3].filter(x => x != undefined).slice(0,nombre_total);
+	break;
+    }
+    
+    return retour;
+
+};
+
+
+// console.log(escargot([[]]));
+// console.log(escargot([[1]]));
+console.log(escargot([[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 35, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]]));
+
+//console.log(escargot([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));
+
+#+end_src
+
+#+RESULTS:
+: [
+:    1,  2,  3,  4,  5,  6,  7,  8,  9,
+:   10, 11, 12, 13, 14, 15, 16, 17, 18,
+:   19, 20, 21, 22, 23, 24, 25, 26, 27,
+:   28, 29, 30, 31, 32, 33, 34, 35, 36
+: ]
+
+
+
+
+#+begin_src js :results output
+
+// Lecture en 4 parties : haut, droite, bas, et gauche
+// A chaque nouvelle itération, la lecture s'effectue sur un tableau réduit par rapport à la lecture précédente
+
+const lectureHaut = (tableau, index_haut, index_haut_debut, index_haut_fin, tour=0) =>  tableau[index_haut+tour].slice(index_haut_debut+tour, index_haut_fin-tour).map(x => x);
+
+const lectureDroite = (tableau, index_droite, index_droite_debut, index_droite_fin, tour=0) => tableau.slice(index_droite_debut + tour,index_droite_fin - tour).map(x => x[index_droite - tour]);
+const lectureBas = (tableau, index_bas, index_bas_debut, index_bas_fin, tour=0) => tableau[index_bas - tour].slice(index_bas_debut + tour,index_bas_fin - tour).reverse();
+const lectureGauche = (tableau, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => tableau.slice(index_gauche_debut + tour,index_gauche_fin - tour).map(x => x[index_gauche + tour]).reverse();
+
+const lectureTour = (a,index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, tour=0) => {
+
+    let retour = [...lectureHaut(a,index_haut, index_haut_debut, index_haut_fin, tour),
+		  ...lectureDroite(a, index_droite, index_droite_debut, index_droite_fin, tour),
+		  ...lectureBas(a, index_bas, index_bas_debut, index_bas_fin, tour),
+		  ...lectureGauche(a, index_gauche, index_gauche_debut, index_gauche_fin, tour)];
+
+    return retour;
+};
+
+const escargot = tableaux => {
+    
+    //const tableaux = [[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]];
+
+    const nombre_total = tableaux.map(x => x.length).reduce((accu, valeur) => accu + valeur, 0);
+    const taille = tableaux[0].length;
+    let retour = null;
+    let index_haut = 0;
+    let index_haut_debut = 0;
+    let index_haut_fin = tableaux[0].length;
+    let index_droite = tableaux[0].length - 1;
+    let index_droite_debut = 1;
+    let index_droite_fin = tableaux.length - 1;
+    let index_bas = tableaux.length - 1;
+    let index_bas_debut = 0;
+    let index_bas_fin = tableaux[0].length;
+    let index_gauche = 0;
+    let index_gauche_debut = 1;
+    let index_gauche_fin = tableaux.length - 1;
+
+    switch(taille){
+    case 0:
+	retour = [];
+	break;
+    case 1:
+	retour = tableaux[0];
+	break;
+    default:
+
+	//calcul empirique du nombre d'itérations nécessaires
+	let iterations = Array.from({length:Math.ceil(tableaux[0].length*3/5)}, (_, i) => i);
+
+	let tours = iterations.map(iteration => lectureTour(tableaux,  index_haut, index_haut_debut, index_haut_fin, index_droite, index_droite_debut, index_droite_fin, index_bas, index_bas_debut, index_bas_fin, index_gauche, index_gauche_debut, index_gauche_fin, iteration));
+
+	//Transformation en tableau à une dimension 
+	retour = tours.reduce((accu, valeur) => [...accu, ...valeur], []).filter(x => x != undefined).slice(0,nombre_total);
+
+	break;
+    }
+    
+    return retour;
+
+};
+
+
+// console.log(escargot([[]]));
+// console.log(escargot([[1]]));
+console.log(escargot([[1, 2, 3, 4, 5, 6], [20, 21, 22, 23, 24, 7], [19, 32, 33, 34, 25, 8], [18, 31, 36, 35, 26, 9], [17, 30, 29, 28, 27, 10], [16, 15, 14, 13, 12, 11]]));
+
+//console.log(escargot([[1, 2, 3], [4, 5, 6], [7, 8, 9]]));
+
+#+end_src
